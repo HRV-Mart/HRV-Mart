@@ -17,7 +17,6 @@
 }
 .searchBar {
     flex: 5;
-    background: white;
     border: none;
     border-radius: 20px;
     align-items: center;
