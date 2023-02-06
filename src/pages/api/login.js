@@ -18,10 +18,10 @@ export default async function handler(req, res) {
             res.status(response.status).json(response.data);
         }
         catch (_) {
-            res.status(404).send("Auth not found")
+            res.status(404).json({message: "Auth not found"})
         }
     }
     else {
-        res.status(404).send("NOT FOUND");
+        res.status(404).json({message: "Not found"})
     }
 }
