@@ -1,5 +1,13 @@
 import styles from '@/styles/Login.module.css'
+import {postRequest} from "@/service/network/network";
+import {useState} from "react";
+import {logError, logMessage} from "@/service/logging/logging";
+import Router from "next/router";
 export default function Login() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [isLoading, setLoading] = useState(false);
+    const [messageCode, setMessageCode] = useState(0);
     return <div className={styles.main}>
         <div className={styles.loginContainer}>
             <div className={styles.imageContainer}/>
@@ -9,14 +17,84 @@ export default function Login() {
                     Login
                 </div>
                 <div className={styles.space}/>
-                <form title={"Login"} className={styles.loginForm}>
-                    <input className={styles.inputHolder} title={"Email"} type={"email"} placeholder={"Email"}/>
-                    <input className={styles.inputHolder} title={"Password"} type={"password"} placeholder={"Password"}/>
-                    <button className={styles.button} >
+                <div title={"Login"} className={styles.loginForm}>
+                    <input
+                        className={styles.inputHolder}
+                        title={"Email"}
+                        type={"email"}
+                        placeholder={"Email"}
+                        value={email}
+                        onChange={(event) => {setEmail(event.target.value)}}
+                    />
+                    <input
+                        className={styles.inputHolder}
+                        title={"Password"}
+                        type={"password"}
+                        placeholder={"Password"}
+                        value={password}
+                        onChange={(event) => {setPassword(event.target.value)}}
+                    />
+                    <button className={styles.button} onClick={()=> {login()}}>
                         Submit
                     </button>
-                </form>
+                    {generateMessage()}
+                </div>
             </div>
         </div>
     </div>
+
+    function generateMessage() {
+        if (isLoading === true) {
+            return <div className={styles.messageLoading}>
+                Loading ...
+            </div>
+        }
+        else if (messageCode === 0) {
+            return <div/>
+        }
+        else if (messageCode === 200) {
+            return <div className={styles.messageSuccess}>
+                Login Success fully
+            </div>
+        }
+        else if (messageCode === 404) {
+            return <div className={styles.messageError}>
+                Incorrect credentials
+            </div>
+        }
+        else {
+            return <div className={styles.messageError}>
+                Something went wrong
+            </div>
+        }
+    }
+    function login() {
+        setLoading(true);
+        postRequest(
+            '/api/login',
+            {
+                email: email,
+                password: password
+            },
+            {
+                "Content-Type": "application/json"
+            },
+            true
+        )
+            .then((data)=> {
+                setLoading(false);
+                setMessageCode(data.status);
+
+                if (data.status === 200) {
+                    Router.push('/')
+                    // Save jwt token
+
+                }
+            })
+            .catch((error) => {
+                logError(error)
+                setMessageCode(500);
+                setLoading(false);
+            })
+    }
 }
