@@ -1,3 +1,9 @@
 .main {
     min-height: 100vh;
 }
+.products{
+    display: grid;
+    align-content: center;
+    grid-template-columns: auto auto auto;
+    padding: 10px;
+}
