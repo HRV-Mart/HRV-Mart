@@ -1,8 +1,9 @@
 import styles from '@/styles/Login.module.css'
 import {postRequest} from "@/service/network/network";
 import {useState} from "react";
-import {logError, logMessage} from "@/service/logging/logging";
+import {logError} from "@/service/logging/logging";
 import Router from "next/router";
+import Link from "next/link";
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -37,6 +38,12 @@ export default function Login() {
                     <button className={styles.button} onClick={()=> {login()}}>
                         Submit
                     </button>
+                    <div className={styles.signupMessage}>
+                        Do not have an account? {" "}
+                        <Link href={'/signup'} className={styles.signup}>
+                            Sign up
+                        </Link>
+                    </div>
                     {generateMessage()}
                 </div>
             </div>
