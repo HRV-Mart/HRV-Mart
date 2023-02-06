@@ -1,7 +1,10 @@
 import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
+import {getRequest} from "@/service/network/network";
+import {logMessage} from "@/service/logging/logging";
 
-export default function Home() {
+export default function Home({products}) {
+    logMessage(products);
   return (
     <>
       <Head>
@@ -15,4 +18,21 @@ export default function Home() {
       </main>
     </>
   )
+}
+export async function getServerSideProps({ req, res }) {
+    const response = await getRequest(`http://localhost:3000/api/product`, {}, true);
+    if (response.status === 200) {
+        return {
+            props: {
+                products: response.data
+            }
+        }
+    }
+    else {
+        return {
+            props: {
+                products: {}
+            }
+        };
+    }
 }
