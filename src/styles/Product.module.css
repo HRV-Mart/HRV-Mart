@@ -1,14 +1,9 @@
 .main {
-    box-shadow: 0 4px 8px 0 rgba(59, 58, 114, 0.2), 0 6px 20px 0 rgba(34, 190, 170, 0.19);
-    width: 20vw;
-    height: 30vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    padding: 2%;
-    margin: 2%;
+    height: 100vh;
 }
-.image {
-    margin: 6%;
+.title {
+    font-size: xxx-large;
+}
+.description {
+    font-size: xx-large;
 }

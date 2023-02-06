@@ -1,4 +1,4 @@
-import styles from "@/styles/Product.module.css"
+import styles from "@/styles/ProductOverview.module.css"
 import Link from "next/link";
 import Image from "next/image";
 export default function Product ({id, title, images}) {
