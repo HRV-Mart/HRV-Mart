@@ -19,10 +19,10 @@ export default async function handler(req, res) {
             res.status(response.status).json(response.data);
         }
         catch (_) {
-            res.status(404).json({message: "Auth not found"})
+            res.status(404).json({message: "Auth Already exist"})
         }
     }
     else {
-        res.status(404).json({message: "Not found"})
+        res.status(404).json({message: "Auth Already exist"})
     }
 }
