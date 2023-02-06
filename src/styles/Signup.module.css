@@ -57,3 +57,25 @@
 .button:hover{
     background-color: darkgreen;
 }
+.messageError {
+    color: red;
+    padding: 10px;
+    margin: 10px;
+}
+.messageSuccess {
+    color: green;
+    padding: 10px;
+    margin: 10px;
+}
+.messageLoading {
+    padding: 10px;
+    margin: 10px;
+}
+.loginMessage {
+    margin-top: 20px;
+    font-size: large;
+}
+.login {
+    text-decoration: underline;
+    color: cornflowerblue;
+}
