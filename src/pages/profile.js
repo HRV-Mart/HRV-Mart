@@ -1,7 +1,7 @@
-import styles from "@/styles/userProfile.module.css";
+import styles from "@/styles/Profile.module.css";
 import {useState} from "react";
 
-export default function UserProfile({user}) {
+export default function Profile({user}) {
     const [name, setName] = useState(`${user.name}`);
 
     return <div className={styles.main}>
