@@ -18,7 +18,7 @@ export default function Login() {
                     Login
                 </div>
                 <div className={styles.space}/>
-                <div title={"Login"} className={styles.loginForm}>
+                <div className={styles.loginForm}>
                     <input
                         className={styles.inputHolder}
                         title={"Email"}
