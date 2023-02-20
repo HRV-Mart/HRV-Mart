@@ -2,7 +2,8 @@
 
 # base image
 FROM node:alpine
-
+ENV BACKEND_URL=http://localhost:3002
+ENV APPLICATION_URL=http://localhost:3000
 # create & set working directory
 RUN mkdir -p /usr/src
 WORKDIR /usr/src
