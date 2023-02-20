@@ -1,42 +1,64 @@
 import {getRequest} from "@/service/network/network";
 import styles from "@/styles/Product.module.css";
-import 'react-slideshow-image/dist/styles.css'
-import {Fade, Slide, Zoom} from "react-slideshow-image";
-import {logMessage} from "@/service/logging/logging";
 import Image from "next/image";
-
+import {useState} from "react";
 export default function ProductPage ({product}) {
-    const divStyle = {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundSize: 'cover',
-        height: '400px',
-        width: '400px'
-    }
+    const [imageIndex, setImageIndex] = useState(2);
     return <div className={styles.main}>
-        <div className={styles.title}>
-            {product.name}
+        <div className={styles.imageSection}>
+            <Image
+                src={product.images[imageIndex]}
+                alt={product.name}
+                width={500}
+                height={500}
+            />
+            <div className={styles.imageIndicatorContainer}>
+                <button
+                    onClick={()=>decrementImageIndex()}
+                    className={styles.imageIndicator}
+                >
+                    ◄
+                </button>
+                <div className={styles.textIndicator}>
+                    {imageIndex+1}/{product.images.length}
+                </div>
+                <button
+                    onClick={()=>incrementImageIndex()}
+                    className={styles.imageIndicator}
+                >
+                    ►
+                </button>
+            </div>
         </div>
-        <div>
-            <Fade
-                pauseOnHover={true}
-                autplay={true}
-                duration={1000}
-                transitionDuration={1000}
-                arrows={false}
-            >
-                {
-                    product.images.map(function (image, index) {
-                        return < div key={index} style={{ ...divStyle, 'backgroundImage': `url(${image})` }}/>
-                    })
-                }
-            </Fade>
-        </div>
-        <div className={styles.description}>
-            {product.description}
+        <hr className={styles.divider}/>
+        <div className={styles.details}>
+            <div className={styles.title}>
+                {product.name}
+            </div>
+            <div className={styles.description}>
+                {product.description}
+            </div>
         </div>
     </div>
+
+    function incrementImageIndex() {
+        const totalImageSize = product.images.length;
+        if (imageIndex >= totalImageSize-1) {
+            setImageIndex(0)
+        }
+        else {
+            setImageIndex(imageIndex+1)
+        }
+    }
+    function decrementImageIndex() {
+        const totalImageSize = product.images.length;
+        if (imageIndex <= 0) {
+            setImageIndex(totalImageSize-1)
+        }
+        else {
+            setImageIndex(imageIndex-1)
+        }
+    }
 }
 export async function getServerSideProps(content) {
     const product = await getRequest(
