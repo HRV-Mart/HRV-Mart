@@ -2,7 +2,7 @@
 [![Build Pipeline](https://github.com/HRV-Mart/HRV-Mart/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/HRV-Mart/HRV-Mart/actions/workflows/build.yml)
 ## Features
 - Login/Signup using **Email** and **Password**
-- Update **user details**
+- ~Update **user details**~
 - View Products on home screen with **load more products feature**
 - **Product specific page** with product details
 ## API Endpoints
