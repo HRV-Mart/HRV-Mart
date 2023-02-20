@@ -8,6 +8,7 @@
     justify-content: space-evenly;
     padding: 2%;
     margin: 2%;
+    cursor: pointer;
 }
 .image {
     margin: 6%;
