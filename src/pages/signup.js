@@ -20,7 +20,7 @@ export default function Signup() {
                     Sign Up
                 </div>
                 <div className={styles.space}/>
-                <div title={"Signup"} className={styles.signupForm}>
+                <div className={styles.signupForm}>
                     <input
                         className={styles.inputHolder}
                         title={"Name"}
