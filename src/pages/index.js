@@ -32,7 +32,7 @@ export default function Home({products}) {
   )
 }
 export async function getServerSideProps({ req, res }) {
-    const response = await getRequest(`http://localhost:3000/api/product`, {}, true);
+    const response = await getRequest(`${process.env.APPLICATION_URL}/api/product`, {}, true);
     if (response.status === 200) {
         return {
             props: {
