@@ -3,7 +3,7 @@ import styles from "@/styles/Product.module.css";
 import Image from "next/image";
 import {useState} from "react";
 export default function ProductPage ({product}) {
-    const [imageIndex, setImageIndex] = useState(2);
+    const [imageIndex, setImageIndex] = useState(0);
     return <div className={styles.main}>
         <div className={styles.imageSection}>
             <Image
