@@ -10,7 +10,11 @@
 }
 .main:hover{
     box-shadow: 0 8px 16px 0 rgba(59, 58, 114, 0.2), 0 12px 40px 0 rgba(34, 190, 170, 0.19);
+    border: 1px solid;
+    border-image-slice: 1;
+    border-image-source: var(--border-gradient);
 }
+
 .image {
     margin: 6%;
 }
