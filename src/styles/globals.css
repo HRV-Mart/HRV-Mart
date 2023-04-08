@@ -16,6 +16,7 @@
   --primary-text-color: darkslategrey;
   --gradient-primary: linear-gradient(90deg, #735DF0, #FA4197, #0BCDFA);
   --gradient-secondary: linear-gradient(180deg, rgba(250,65,151,0.5187324929971988) 0%, rgba(255,255,255,0.3842787114845938) 19%);
+  --border-gradient: linear-gradient(90deg, #735DF0, #FA4197, #0BCDFA);
   
   --font-xxl: 5em;
   --font-64: 3.5em;
