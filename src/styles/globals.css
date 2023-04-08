@@ -1,3 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+:root {
+  --max-width: 1100px;
+  --border-radius: 12px;
+  --font-dm: 'DM Sans', sans-serif;
+  --font-dongle: 'Dongle', sans-serif;
+  --font-monts: 'Montserrat', sans-serif;
+  
+  --foreground: #F5F9FC;
+  --background-primary: yellow;
+  --background-secondary: #0A2540;
+  --background-dark: #1C1C1C;
+  --background-light: #535353;
+
+  --gradient-primary: linear-gradient(90deg, #735DF0, #FA4197, #0BCDFA);
+  --gradient-secondary: linear-gradient(180deg, rgba(250,65,151,0.5187324929971988) 0%, rgba(255,255,255,0.3842787114845938) 19%);
+  
+  --font-xxl: 5em;
+  --font-64: 3.5em;
+  --font-48: 2em;
+  --font-35: 1.6em;
+  --font-24: 1.2em;
+  --font-20: 1em;
+}
 * {
   box-sizing: border-box;
   padding: 0;
