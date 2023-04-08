@@ -4,6 +4,7 @@ import Link from "next/link";
 import {postRequest} from "@/service/network/network";
 import Router from "next/router";
 import {logError} from "@/service/logging/logging";
+import { toast } from 'react-toastify';
 export default function Signup() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -104,6 +105,7 @@ export default function Signup() {
                 setMessageCode(data.status);
 
                 if (data.status === 200) {
+                    toast("Account created successfully", { hideProgressBar: false, autoClose: 2000, type: 'success', theme: 'colored'});
                     Router.push('/')
                     // Save jwt token
 
