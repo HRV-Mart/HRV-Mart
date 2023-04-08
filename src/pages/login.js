@@ -4,6 +4,7 @@ import {useState} from "react";
 import {logError} from "@/service/logging/logging";
 import Router from "next/router";
 import Link from "next/link";
+import { toast } from "react-toastify";
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -93,6 +94,7 @@ export default function Login() {
                 setMessageCode(data.status);
 
                 if (data.status === 200) {
+                    toast('Login Successfully', { hideProgressBar: false, autoClose: 2000, type: 'success', theme: 'colored'});
                     Router.push('/')
                     // Save jwt token
 
