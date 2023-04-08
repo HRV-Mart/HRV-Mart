@@ -28,11 +28,8 @@
     font-size: large;
 }
 .link{
-    background-color: darkcyan;
     padding: 5px;
-    border-radius: 5px;
-    transition-duration: 200ms;
 }
 .link:hover {
-    background-color: seagreen;
-}
+    text-decoration: underline;
+}   
