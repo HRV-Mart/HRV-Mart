@@ -18,8 +18,12 @@
     flex: 5;
     border: none;
     border-radius: 20px;
-    align-items: center;
     background-color: gainsboro;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: var(--primary-text-color);
+    cursor: pointer;
 }
 .info {
     flex: 2;
