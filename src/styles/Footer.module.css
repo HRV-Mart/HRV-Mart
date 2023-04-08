@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background-color: cornflowerblue;
+    background-color: var(--background-primary);
 }
 .brand {
     width: 50%;
@@ -28,11 +28,8 @@
     font-size: large;
 }
 .link{
-    background-color: darkcyan;
     padding: 5px;
-    border-radius: 5px;
-    transition-duration: 200ms;
 }
 .link:hover {
-    background-color: seagreen;
-}
+    text-decoration: underline;
+}   
