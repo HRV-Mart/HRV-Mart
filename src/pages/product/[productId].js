@@ -84,11 +84,13 @@ export default function ProductPage ({product}) {
         }
         else {
             return <div className={styles.cartHolder}>
-                <div onClick={()=>{decreaseCartItem()}}>
+                <div onClick={()=>{decreaseCartItem()}} className={`${styles.cartButton} ${styles.red_background}`}>
                     -
                 </div>
-                {totalItem}
-                <div onClick={()=>{incrementCartItem()}}>
+                <div className={styles.quantity}>
+                    {totalItem}
+                </div>
+                <div onClick={()=>{incrementCartItem()}} className={`${styles.cartButton} ${styles.green_background}`}>
                     +
                 </div>
             </div>
