@@ -6,6 +6,17 @@ import Typewriter from 'typewriter-effect';
 
 export default function ProductPage ({product}) {
     const [imageIndex, setImageIndex] = useState(0);
+    const [totalItem, setTotalItem] = useState(0);
+    function incrementCartItem() {
+        if (totalItem < 10) {
+            setTotalItem(totalItem+1);
+        }
+    }
+    function decreaseCartItem() {
+        if (totalItem >= 1) {
+            setTotalItem(totalItem-1);
+        }
+    }
     return <div className={styles.main}>
         <div className={styles.imageSection}>
             <Image
@@ -32,7 +43,7 @@ export default function ProductPage ({product}) {
                 </button>
             </div>
         </div>
-        <hr className={styles.divider}/>
+        <hr className={styles.vertical_divider}/>
         <div className={styles.details}>
             <div className={styles.title}>
                 <Typewriter options={{
@@ -40,11 +51,49 @@ export default function ProductPage ({product}) {
                     strings: product.name,
                 }} />
             </div>
-            <div className={styles.description}>
-                {product.description}
+            <div className={styles.descriptionContainer}>
+                <div className={styles.descriptionTitle}>
+                    Description:
+                </div>
+                <div className={styles.description}>
+                    {product.description}
+                </div>
+            </div>
+            <div className={styles.descriptionContainer}>
+                <div className={styles.descriptionTitle}>
+                    Price:
+                </div>
+                <div className={styles.description}>
+                    ₹ {product.price}
+                </div>
+            </div>
+            <hr className={styles.horizontal_divider}/>
+            <div className={styles.cartContainer}>
+                {cartHolder()}
             </div>
         </div>
     </div>
+    function cartHolder() {
+        if (totalItem === 0) {
+            return <div
+                className={styles.cartHolder}
+                onClick={()=>{incrementCartItem()}}
+            >
+                ADD TO CART
+            </div>
+        }
+        else {
+            return <div className={styles.cartHolder}>
+                <div onClick={()=>{decreaseCartItem()}}>
+                    -
+                </div>
+                {totalItem}
+                <div onClick={()=>{incrementCartItem()}}>
+                    +
+                </div>
+            </div>
+        }
+    }
 
     function incrementImageIndex() {
         const totalImageSize = product.images.length;
