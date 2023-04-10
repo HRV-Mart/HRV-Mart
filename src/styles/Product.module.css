@@ -17,7 +17,7 @@
     color: rgb(242, 242, 242);
 }
 .horizontal_divider{
-    width: 90%;
+    width: 100%;
     color: rgb(242, 242, 242);
 }
 .details {
@@ -70,7 +70,6 @@
     flex: 4;
 }
 .cartContainer {
-    margin: 2%;
     cursor: pointer;
     font-size: x-large;
     /*padding: 1% 3%;*/
@@ -98,6 +97,13 @@
     align-items: center;
     justify-content: center;
 }
+.likeCartContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
 .cartButton {
     flex: 1;
     display: flex;
@@ -110,4 +116,11 @@
 }
 .green_background {
     background: linear-gradient(90deg, transparent, green);
+}
+.likeContainer {
+    font-size: xxx-large;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-items: center;
 }
