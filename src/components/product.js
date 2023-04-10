@@ -7,7 +7,13 @@ export default function Product ({id, title, images}) {
                 <h2 className={styles.title}>
                     {title}
                 </h2>
-                <Image className={styles.image} src={images[0]} alt={title} width={200} height={200} />
+                <Image
+                    className={styles.image}
+                    src={images[0]}
+                    alt={title}
+                    width={200}
+                    height={200}
+                />
             </Link>
         </div>
 }

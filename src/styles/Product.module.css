@@ -12,8 +12,13 @@
     align-items: center;
     justify-content: center;
 }
-.divider{
+.vertical_divider{
     height: 100%;
+    color: rgb(242, 242, 242);
+}
+.horizontal_divider{
+    width: 100%;
+    color: rgb(242, 242, 242);
 }
 .details {
     width: 50%;
@@ -21,7 +26,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
 }
 .imageIndicatorContainer {
     display: flex;
@@ -39,6 +43,10 @@
     padding: 5px;
     margin: 5px;
     font-size: larger;
+    cursor: pointer;
+}
+.imageIndicator:hover {
+    color: var(--background-primary);
 }
 .title {
     font-size: xxx-large;
@@ -47,8 +55,79 @@
     margin: 10px;
     padding: 10px;
 }
-.description{
-    font-size: large;
+.title:hover {
+    text-decoration: underline;
+}
+.descriptionContainer{
+    display: flex;
+    width: 100%;
     margin: 10px;
     padding: 10px;
+    align-items: center;
+}
+.descriptionTitle {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-decoration: underline;
+    font-size: large;
+}
+.description {
+    flex: 4;
+}
+.cartContainer {
+    cursor: pointer;
+    font-size: x-large;
+    /*padding: 1% 3%;*/
+    border-image-slice: 1;
+    border-image-source: var(--border-gradient);
+    border-width: 1px;
+    border-style: solid;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cartHolder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /*justify-content: space-around;*/
+    justify-content: center;
+}
+.quantity {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.likeCartContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+.cartButton {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.red_background {
+    background: linear-gradient(90deg, red, transparent);
+}
+.green_background {
+    background: linear-gradient(90deg, transparent, green);
+}
+.likeContainer {
+    font-size: xxx-large;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-items: center;
 }
