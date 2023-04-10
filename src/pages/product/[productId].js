@@ -2,7 +2,6 @@ import {getRequest} from "@/service/network/network";
 import styles from "@/styles/Product.module.css";
 import Image from "next/image";
 import {useState} from "react";
-import Typewriter from 'typewriter-effect';
 
 export default function ProductPage ({product}) {
     const [imageIndex, setImageIndex] = useState(0);
@@ -35,10 +34,7 @@ export default function ProductPage ({product}) {
         <hr className={styles.divider}/>
         <div className={styles.details}>
             <div className={styles.title}>
-                <Typewriter options={{
-                    autoStart: true,
-                    strings: product.name,
-                }} />
+                {product.name}
             </div>
             <div className={styles.description}>
                 {product.description}
