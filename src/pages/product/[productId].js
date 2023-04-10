@@ -2,7 +2,6 @@ import {getRequest} from "@/service/network/network";
 import styles from "@/styles/Product.module.css";
 import Image from "next/image";
 import {useState} from "react";
-import Typewriter from 'typewriter-effect';
 import {AiFillHeart} from "react-icons/ai";
 import { toast } from "react-toastify";
 
@@ -50,10 +49,7 @@ export default function ProductPage ({product}) {
         <hr className={styles.vertical_divider}/>
         <div className={styles.details}>
             <div className={styles.title}>
-                <Typewriter options={{
-                    autoStart: true,
-                    strings: product.name,
-                }} />
+                {product.name}
             </div>
             <div className={styles.descriptionContainer}>
                 <div className={styles.descriptionTitle}>
