@@ -3,10 +3,14 @@ import styles from "@/styles/Product.module.css";
 import Image from "next/image";
 import {useState} from "react";
 import Typewriter from 'typewriter-effect';
+import {AiFillHeart} from "react-icons/ai";
+import { toast } from "react-toastify";
 
 export default function ProductPage ({product}) {
     const [imageIndex, setImageIndex] = useState(0);
     const [totalItem, setTotalItem] = useState(0);
+    const [isLike, setIsLike] = useState(false);
+
     function incrementCartItem() {
         if (totalItem < 10) {
             setTotalItem(totalItem+1);
@@ -67,12 +71,31 @@ export default function ProductPage ({product}) {
                     ₹ {product.price}
                 </div>
             </div>
-            <hr className={styles.horizontal_divider}/>
-            <div className={styles.cartContainer}>
-                {cartHolder()}
+            <div className={styles.likeCartContainer}>
+                <div className={styles.likeContainer} onClick={changeLike}>
+                    {
+                        isLike ?
+                            <AiFillHeart
+                                fill={"red"}/> :
+                            <AiFillHeart  />
+                    }
+                </div>
+                <div className={styles.cartContainer}>
+                    {cartHolder()}
+                </div>
             </div>
+            <hr className={styles.horizontal_divider}/>
         </div>
     </div>
+    function changeLike() {
+        if (! isLike) {
+            toast('Product added to Like', { hideProgressBar: false, autoClose: 2000, type: 'success', theme: "light"});
+        }
+        else {
+            toast('Product remove from Like', { hideProgressBar: false, autoClose: 2000, type: 'error', theme: "light"});
+        }
+        setIsLike(!isLike)
+    }
     function cartHolder() {
         if (totalItem === 0) {
             return <div
