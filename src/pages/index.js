@@ -1,11 +1,9 @@
 import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
 import {getRequest} from "@/service/network/network";
-import {logMessage} from "@/service/logging/logging";
 import Product from "@/components/product";
 
 export default function Home({products}) {
-    logMessage(products);
   return (
     <>
       <Head>
@@ -32,7 +30,7 @@ export default function Home({products}) {
   )
 }
 export async function getServerSideProps({ req, res }) {
-    const response = await getRequest(`${process.env.APPLICATION_URL}/api/product`, {}, true);
+    const response = await getRequest(`${process.env.APPLICATION_URL}/api/product?index=1`, {}, true);
     if (response.status === 200) {
         return {
             props: {
