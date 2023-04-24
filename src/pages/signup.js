@@ -5,6 +5,7 @@ import {postRequest} from "@/service/network/network";
 import Router from "next/router";
 import {logError} from "@/service/logging/logging";
 import { toast } from 'react-toastify';
+import Typewriter from "typewriter-effect";
 export default function Signup() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -20,7 +21,18 @@ export default function Signup() {
                 <div className={styles.title}>
                     Sign Up
                 </div>
-                <div className={styles.space}/>
+                <div className={styles.space}>
+                    <div className={`${styles.space} ${styles.title}`}>
+                        <Typewriter options={{
+                            strings: [
+                                "Welcome to our website",
+                                "Please create an account"
+                            ],
+                            autoStart: true,
+                            loop: true
+                        }}/>
+                    </div>
+                </div>
                 <div className={styles.signupForm}>
                     <input
                         className={styles.inputHolder}
