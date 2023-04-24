@@ -12,7 +12,7 @@ export default function Header() {
                 strings: [
                     "Search Product",
                     "Search Bags",
-                    "Search Speeker",
+                    "Search Speakera",
                     "Search T-Shirt",
                 ],
                 autoStart: true,

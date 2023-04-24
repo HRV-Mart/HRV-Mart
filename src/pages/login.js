@@ -5,11 +5,13 @@ import {logError} from "@/service/logging/logging";
 import Router from "next/router";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import Typewriter from "typewriter-effect";
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setLoading] = useState(false);
     const [messageCode, setMessageCode] = useState(0);
+
     return <div className={styles.main}>
         <div className={styles.loginContainer}>
             <div className={styles.imageContainer}/>
@@ -18,7 +20,16 @@ export default function Login() {
                 <div className={styles.title}>
                     Login
                 </div>
-                <div className={styles.space}/>
+                <div className={`${styles.space} ${styles.title}`}>
+                    <Typewriter options={{
+                        strings: [
+                            "Welcome back to our website",
+                            "Please login with your existing account"
+                        ],
+                        autoStart: true,
+                        loop: true
+                    }}/>
+                </div>
                 <div className={styles.loginForm}>
                     <input
                         className={styles.inputHolder}
