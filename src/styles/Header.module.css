@@ -7,7 +7,7 @@
     border-bottom-right-radius: 20px;
     background-color: var(--background-primary);
 }
-.icon {
+.logo {
     flex: 1;
     font-size: xx-large;
     display: flex;
@@ -25,6 +25,7 @@
     align-items: center;
     color: var(--primary-text-color);
     cursor: pointer;
+    padding: 10px;
 }
 .info {
     flex: 2;
@@ -33,4 +34,21 @@
     justify-content: space-evenly;
     align-items: center;
     font-size: x-large;
+}
+.icon {
+    color: var(--foreground);
+}
+.icon:hover {
+    animation: rotation 2s infinite;
+}
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
