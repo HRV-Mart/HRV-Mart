@@ -1,6 +1,7 @@
 import styles from "../styles/Header.module.css";
 import Link from "next/link";
 import Typewriter from 'typewriter-effect';
+import {AiOutlineShoppingCart, AiOutlineHeart, AiOutlineUser} from "react-icons/ai";
 
 export default function Header() {
     return <div className={styles.main}>
@@ -22,10 +23,13 @@ export default function Header() {
         </div>
         <div className={styles.info}>
             <Link href={"/login"}>
-                Login
+                <AiOutlineUser color={"white"} title={"Login"}/>
+            </Link>
+            <Link href={"/like"}>
+                <AiOutlineHeart color={"white"} title={"Like"}/>
             </Link>
             <Link href={"/cart"}>
-                Cart
+                <AiOutlineShoppingCart color={"white"} title={"Cart"}/>
             </Link>
         </div>
     </div>
