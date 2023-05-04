@@ -21,6 +21,6 @@
 .title {
     cursor: pointer;
     text-decoration: underline;
-    color: darkslategrey;
+    color: var(--title-color);
     text-align: center;
 }
