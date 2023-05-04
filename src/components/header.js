@@ -19,8 +19,8 @@ export default function Header() {
                 strings: [
                     "Search Product",
                     "Search Bags",
-                    "Search Speakera",
-                    "Search T-Shirt",
+                    "Search Speaker",
+                    "Search T-Shirt"
                 ],
                 autoStart: true,
                 loop: true,
