@@ -51,7 +51,7 @@
 .title {
     font-size: xxx-large;
     font-weight: bold;
-    color: darkslategrey;
+    color: var(--title-color);
     margin: 10px;
     padding: 10px;
 }
