@@ -35,20 +35,22 @@
     align-items: center;
     font-size: x-large;
 }
-.icon {
+.icon_container {
     color: var(--foreground);
+    display: flex;
+    align-items: center;
 }
-.icon:hover {
-    animation: rotation 2s infinite;
+.iconTitle {
+    margin: 2px;
 }
-@keyframes rotation {
+.icon_container:hover {
+    animation: bouncing_animation alternate-reverse 500ms infinite;
+}
+@keyframes bouncing_animation {
     0% {
-        transform: rotate(0deg);
-    }
-    50% {
-        transform: rotate(180deg);
+        translate: 0 -2px;
     }
     100% {
-        transform: rotate(360deg);
+        translate: 0 2px;
     }
 }

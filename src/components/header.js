@@ -28,14 +28,17 @@ export default function Header() {
             }}/>
         </div>
         <div className={styles.info}>
-            <Link href={"/login"}>
-                <AiOutlineUser className={styles.icon} title={"Login"}/>
+            <Link href={"/login"} className={styles.icon_container}>
+                <AiOutlineUser  title={"Login"}/>
+                <div className={styles.iconTitle}>Login</div>
             </Link>
-            <Link href={"/like"}>
-                <AiOutlineHeart className={styles.icon} title={"Like"}/>
+            <Link href={"/like"} className={styles.icon_container}>
+                <AiOutlineHeart title={"Like"}/>
+                <div className={styles.iconTitle}>Like</div>
             </Link>
-            <Link href={"/cart"}>
-                <AiOutlineShoppingCart className={styles.icon} title={"Cart"}/>
+            <Link href={"/cart"} className={styles.icon_container}>
+                <AiOutlineShoppingCart title={"Cart"}/>
+                <div className={styles.iconTitle}>Cart</div>
             </Link>
         </div>
     </div>
