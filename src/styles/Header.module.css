@@ -5,6 +5,7 @@
     padding: 10px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
+    background-color: var(--background-primary);
 }
 .icon {
     flex: 1;
