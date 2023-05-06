@@ -12,7 +12,7 @@
   --background-primary: #F4631B;
   --background-secondary: rgb(80, 80, 7);
   --background-dark: #1C1C1C;
-  --background-light: #535353;
+  --background-light: white;
   --title-color: darkslategrey;
   --primary-text-color: darkslategrey;
   --gradient-primary: linear-gradient(90deg, #735DF0, #FA4197, #0BCDFA);
