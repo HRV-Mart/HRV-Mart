@@ -1,16 +1,27 @@
 import styles from "@/styles/Like.module.css";
-import Product from "@/components/product";
 import {getRequest} from "@/service/network/network";
 import {useEffect, useState} from "react";
-import {useRouter} from "next/router";
+import Router from "next/router";
+import {logError, logMessage} from "@/service/logging/logging";
 
-export default function Like ({token}) {
-    const router = useRouter();
-    const index = router.query;
+export default function Like ({token, index}) {
+    if (! token) {
+        try {
+            Router.push("/404")
+                .then(()=>{})
+                .catch((error)=>{logError(error)});
+        }
+        catch (e) {
+            logError(e);
+        }
+    }
     const [products, setProducts] = useState([]);
     async function loadData(page_index) {
-        const response = await getRequest(`/api/product?page=${page_index}`, {}, true);
-        console.log(response)
+        const response = await getRequest(
+            `/api/like?page=${page_index}`,
+            token,
+            true
+        );
         if (response.status === 200) {
             setProducts(response.data.data);
         }
@@ -19,20 +30,26 @@ export default function Like ({token}) {
         }
     }
     useEffect(() => {
-        loadData(0)
-    }, [0])
+        loadData(index)
+    }, [])
     return <div className={styles.main}>
-        <div className={styles.products}>
+        <div >
             {
                 products.map(function (product, index) {
-                    return <Product
-                        key={product.id}
-                        title={product.name}
-                        id={product.id}
-                        images={product.images}
-                    />
+                    return <div>
+                        {product.productId}
+                    </div>
                 })
             }
         </div>
     </div>
+}
+export async function getServerSideProps(context) {
+    const index = context?.query.index;
+    if (index) {
+        return { props: { index: index } };
+    }
+    else {
+        return { props: { index: 0 } };
+    }
 }
