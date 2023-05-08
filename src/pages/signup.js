@@ -6,7 +6,7 @@ import Router from "next/router";
 import {logError} from "@/service/logging/logging";
 import { toast } from 'react-toastify';
 import Typewriter from "typewriter-effect";
-export default function Signup() {
+export default function Signup({setToken}) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -117,6 +117,10 @@ export default function Signup() {
                 setMessageCode(data.status);
 
                 if (data.status === 200) {
+                    const token = data.data.token;
+                    if (token) {
+                        setToken(token);
+                    }
                     toast("Account created successfully", { hideProgressBar: false, autoClose: 2000, type: 'success', theme: 'colored'});
                     Router.push('/')
                     // Save jwt token
