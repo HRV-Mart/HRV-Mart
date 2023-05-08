@@ -107,7 +107,6 @@ export default function Login({setToken}) {
                 if (data.status === 200) {
                     const token = data.data.token;
                     if (token) {
-                        logMessage(`Tokens: ${token}`);
                         setToken(token);
                     }
                     toast('Login Successfully', { hideProgressBar: false, autoClose: 2000, type: 'success', theme: 'colored'});
