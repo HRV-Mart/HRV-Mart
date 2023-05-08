@@ -1,12 +1,12 @@
 import styles from '@/styles/Login.module.css'
 import {postRequest} from "@/service/network/network";
 import {useState} from "react";
-import {logError} from "@/service/logging/logging";
+import {logError, logMessage} from "@/service/logging/logging";
 import Router from "next/router";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import Typewriter from "typewriter-effect";
-export default function Login() {
+export default function Login({setToken}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setLoading] = useState(false);
@@ -105,6 +105,10 @@ export default function Login() {
                 setMessageCode(data.status);
 
                 if (data.status === 200) {
+                    const token = data.data.token;
+                    if (token) {
+                        setToken(token);
+                    }
                     toast('Login Successfully', { hideProgressBar: false, autoClose: 2000, type: 'success', theme: 'colored'});
                     Router.push('/')
                     // Save jwt token
