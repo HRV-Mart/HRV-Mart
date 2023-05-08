@@ -1,7 +1,7 @@
 import styles from "../styles/Header.module.css";
 import Link from "next/link";
 import Typewriter from 'typewriter-effect';
-import {AiOutlineShoppingCart, AiOutlineHeart, AiOutlineUser} from "react-icons/ai";
+import {AiOutlineShoppingCart, AiOutlineHeart, AiOutlineUser, AiOutlineUsergroupAdd} from "react-icons/ai";
 import Image from "next/image";
 
 export default function Header({token}) {
@@ -39,10 +39,16 @@ export default function Header({token}) {
                             <div className={styles.iconTitle}>Cart</div>
                         </Link>
                     </>:
-                    <Link href={"/login"} className={styles.icon_container}>
-                        <AiOutlineUser  title={"Login"}/>
-                        <div className={styles.iconTitle}>Login</div>
-                    </Link>
+                    <>
+                        <Link href={"/login"} className={styles.icon_container}>
+                            <AiOutlineUser  title={"Login"}/>
+                            <div className={styles.iconTitle}>Login</div>
+                        </Link>
+                        <Link href={"/signup"} className={styles.icon_container}>
+                            <AiOutlineUsergroupAdd  title={"Sign Up"}/>
+                            <div className={styles.iconTitle}>Sign Up</div>
+                        </Link>
+                    </>
             }
 
         </div>
