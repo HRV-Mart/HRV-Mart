@@ -4,7 +4,7 @@ import Typewriter from 'typewriter-effect';
 import {AiOutlineShoppingCart, AiOutlineHeart, AiOutlineUser} from "react-icons/ai";
 import Image from "next/image";
 
-export default function Header() {
+export default function Header({token}) {
     return <div className={styles.main}>
         <Link  href={"/"} className={styles.logo}>
             <Image
@@ -28,18 +28,23 @@ export default function Header() {
             }}/>
         </div>
         <div className={styles.info}>
-            <Link href={"/login"} className={styles.icon_container}>
-                <AiOutlineUser  title={"Login"}/>
-                <div className={styles.iconTitle}>Login</div>
-            </Link>
-            <Link href={"/like"} className={styles.icon_container}>
-                <AiOutlineHeart title={"Like"}/>
-                <div className={styles.iconTitle}>Like</div>
-            </Link>
-            <Link href={"/cart"} className={styles.icon_container}>
-                <AiOutlineShoppingCart title={"Cart"}/>
-                <div className={styles.iconTitle}>Cart</div>
-            </Link>
+            {
+                token ? <>
+                        <Link href={"/like"} className={styles.icon_container}>
+                            <AiOutlineHeart title={"Like"}/>
+                            <div className={styles.iconTitle}>Like</div>
+                        </Link>
+                        <Link href={"/cart"} className={styles.icon_container}>
+                            <AiOutlineShoppingCart title={"Cart"}/>
+                            <div className={styles.iconTitle}>Cart</div>
+                        </Link>
+                    </>:
+                    <Link href={"/login"} className={styles.icon_container}>
+                        <AiOutlineUser  title={"Login"}/>
+                        <div className={styles.iconTitle}>Login</div>
+                    </Link>
+            }
+
         </div>
     </div>
 }
