@@ -1,15 +1,17 @@
 import styles from '@/styles/Login.module.css'
 import {postRequest} from "@/service/network/network";
 import {useState} from "react";
-import {logError} from "@/service/logging/logging";
+import {logError, logMessage} from "@/service/logging/logging";
 import Router from "next/router";
 import Link from "next/link";
 import { toast } from "react-toastify";
-export default function Login() {
+import Typewriter from "typewriter-effect";
+export default function Login({setToken}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setLoading] = useState(false);
     const [messageCode, setMessageCode] = useState(0);
+
     return <div className={styles.main}>
         <div className={styles.loginContainer}>
             <div className={styles.imageContainer}/>
@@ -18,7 +20,16 @@ export default function Login() {
                 <div className={styles.title}>
                     Login
                 </div>
-                <div className={styles.space}/>
+                <div className={`${styles.space} ${styles.title}`}>
+                    <Typewriter options={{
+                        strings: [
+                            "Welcome back to our website",
+                            "Please login with your existing account"
+                        ],
+                        autoStart: true,
+                        loop: true
+                    }}/>
+                </div>
                 <div className={styles.loginForm}>
                     <input
                         className={styles.inputHolder}
@@ -94,6 +105,10 @@ export default function Login() {
                 setMessageCode(data.status);
 
                 if (data.status === 200) {
+                    const token = data.data.token;
+                    if (token) {
+                        setToken(token);
+                    }
                     toast('Login Successfully', { hideProgressBar: false, autoClose: 2000, type: 'success', theme: 'colored'});
                     Router.push('/')
                     // Save jwt token

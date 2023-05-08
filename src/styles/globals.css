@@ -9,10 +9,11 @@
   --font-monts: 'Montserrat', sans-serif;
   
   --foreground: #F5F9FC;
-  --background-primary: yellow;
+  --background-primary: #F4631B;
   --background-secondary: rgb(80, 80, 7);
   --background-dark: #1C1C1C;
-  --background-light: #535353;
+  --background-light: white;
+  --title-color: darkslategrey;
   --primary-text-color: darkslategrey;
   --gradient-primary: linear-gradient(90deg, #735DF0, #FA4197, #0BCDFA);
   --gradient-secondary: linear-gradient(180deg, rgba(250,65,151,0.5187324929971988) 0%, rgba(255,255,255,0.3842787114845938) 19%);
@@ -39,4 +40,43 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+
+    --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
+    --secondary-glow: linear-gradient(
+            to bottom right,
+            rgba(1, 65, 255, 0),
+            rgba(1, 65, 255, 0),
+            rgba(1, 65, 255, 0.3)
+    );
+    --title-color: white;
+    --tile-start-rgb: 2, 13, 46;
+    --tile-end-rgb: 2, 5, 19;
+    --tile-border: conic-gradient(
+            #ffffff80,
+            #ffffff40,
+            #ffffff30,
+            #ffffff20,
+            #ffffff10,
+            #ffffff10,
+            #ffffff80
+    );
+
+    --callout-rgb: 20, 20, 20;
+    --callout-border-rgb: 108, 108, 108;
+    --card-rgb: 100, 100, 100;
+    --card-border-rgb: 200, 200, 200;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
 }
