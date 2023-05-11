@@ -8,6 +8,9 @@ import {useState} from "react";
 
 export default function App({ Component, pageProps }) {
   const [token, setToken] = useState(null);
+  setTimeout(()=>{
+    setToken(null)
+  }, 1000*60*10);
   return <>
     <Header token={token}/>
     <Component {...pageProps} token={token} setToken={setToken}/>
