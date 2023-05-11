@@ -1,0 +1,7 @@
+.main {
+    min-height: 100vh;
+    color: white;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+}

@@ -1,7 +1,7 @@
 import styles from '@/styles/Login.module.css'
 import {postRequest} from "@/service/network/network";
 import {useState} from "react";
-import {logError, logMessage} from "@/service/logging/logging";
+import {logError} from "@/service/logging/logging";
 import Router from "next/router";
 import Link from "next/link";
 import { toast } from "react-toastify";
