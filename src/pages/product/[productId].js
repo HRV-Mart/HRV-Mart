@@ -1,3 +1,4 @@
+import { logError, logMessage } from "@/service/logging/logging";
 import {deleteRequest, getRequest, postRequest, putRequest} from "@/service/network/network";
 import styles from "@/styles/Product.module.css";
 import Image from "next/image";
@@ -9,7 +10,9 @@ export default function ProductPage ({product, token}) {
     const [imageIndex, setImageIndex] = useState(0);
     const [totalItem, setTotalItem] = useState(0);
     const [isLike, setIsLike] = useState(false);
-
+    useState(()=>{
+        isProductLiked();
+    }, [0])
     function incrementCartItem() {
         if (totalItem < 10) {
             setTotalItem(totalItem+1);
@@ -146,6 +149,23 @@ export default function ProductPage ({product, token}) {
         else {
             setImageIndex(imageIndex-1)
         }
+    }
+    function isProductLiked() {
+        getRequest(`/api/like/${product.id}`, token, false)
+        .then((data) => {
+            logMessage(data.data);
+            if (data.status === 200) {
+                if (data.data === "true" || data.data === true) {
+                    setIsLike(true)
+                }
+                else {
+                    setIsLike(false)
+                }
+            }
+        })
+        .catch((error)=>{
+            logError(error);
+        })
     }
 }
 export async function getServerSideProps(content) {
