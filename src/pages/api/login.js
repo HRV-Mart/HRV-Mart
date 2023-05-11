@@ -1,5 +1,4 @@
 import {postRequest} from "@/service/network/network";
-import {logMessage} from "@/service/logging/logging";
 
 export default async function handler(req, res) {
     if (req.method === "POST") {
