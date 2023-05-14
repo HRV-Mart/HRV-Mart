@@ -1,4 +1,4 @@
-import {getRequest, putRequest} from "@/service/network/network";
+import {getRequest, postRequest, putRequest} from "@/service/network/network";
 
 export default async function handler (req, res) {
     const authentication = req.headers.authentication;
@@ -26,6 +26,23 @@ export default async function handler (req, res) {
                     }, false
                 )
                 res.status(update_response.status).send(update_response.data)
+            }
+            catch(_) {
+                res.status(500).json("Something went wrong");
+            }
+            break
+        case "POST":
+            try {
+                const post_response = await postRequest(
+                    `${process.env.BACKEND_URL}/cart`, {
+                        productId: req.body.productId,
+                        quantity: req.body.quantity
+                    }, {
+                        "Content-Type": "application/json",
+                        authentication: `bearer:${token}`
+                    }, false
+                )
+                res.status(post_response.status).send(post_response.data)
             }
             catch(_) {
                 res.status(500).json("Something went wrong");
