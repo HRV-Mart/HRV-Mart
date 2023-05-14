@@ -4,7 +4,7 @@ import styles from "@/styles/Like.module.css"
 import { useEffect, useState } from "react";
 import CartProduct from "@/components/cart_product";
 
-export default function Cart ({token, index}) {
+export default function Cart ({token}) {
 
     const [productIds, setProductIds] = useState([]);
     const [price, setPrice] = useState(0);
