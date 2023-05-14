@@ -1,0 +1,35 @@
+.main {
+    width: 80vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+}
+.title {
+    font-size: large;
+    text-decoration: underline;
+}
+.quality_container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 10%;
+    justify-content: space-evenly;
+    font-size: large;
+}
+.button {
+    border: none;
+    font-size: xx-large;
+    border-radius: 400px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.red {
+    background-color: red;
+}
+.green {
+    background-color: green;
+}
