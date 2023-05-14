@@ -2,7 +2,7 @@ import { logError, logMessage } from "@/service/logging/logging";
 import {deleteRequest, getRequest, postRequest, putRequest} from "@/service/network/network";
 import styles from "@/styles/Product.module.css";
 import Image from "next/image";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {AiFillHeart} from "react-icons/ai";
 import { toast } from "react-toastify";
 
@@ -10,17 +10,65 @@ export default function ProductPage ({product, token}) {
     const [imageIndex, setImageIndex] = useState(0);
     const [totalItem, setTotalItem] = useState(0);
     const [isLike, setIsLike] = useState(false);
-    useState(()=>{
+
+    useEffect(loadQuantity, [token, product.id])
+
+    useEffect(()=>{
         isProductLiked();
     }, [0])
-    function incrementCartItem() {
-        if (totalItem < 10) {
-            setTotalItem(totalItem+1);
-        }
+    function incrementCartItem(isNew) {
+        updateProductQuantity(totalItem+1, isNew)
+        setTotalItem(totalItem+1);
     }
     function decreaseCartItem() {
         if (totalItem >= 1) {
+            updateProductQuantity(totalItem-1, false)
             setTotalItem(totalItem-1);
+        }
+    }
+    function loadQuantity() {
+        getRequest(`/api/cart/${product.id}`, token, true)
+            .then((data)=>{if (data.status === 200) {
+                setTotalItem(data.data)
+            }})
+            .catch((error)=>{logError(error); setTotalItem(0)})
+    }
+    function updateProductQuantity(updatedQuantity, isNew) {
+        if (isNew) {
+            postRequest(
+                `/api/cart`,
+                {
+                    productId: product.id,
+                    quantity: updatedQuantity
+                },
+                {authentication: `bearer:${token}`, "Content-Type": "application/json"},
+                false
+            )
+                .then(logMessage)
+                .catch(logError)
+        }
+        else if (updatedQuantity > 0) {
+            putRequest(
+                `/api/cart`,
+                {
+                    productId: product.id,
+                    quantity: updatedQuantity
+                },
+                {authentication: `bearer:${token}`, "Content-Type": "application/json"},
+                false
+            )
+                .then(logMessage)
+                .catch(logError)
+        }
+        else {
+            deleteRequest(
+                `/api/cart/${product.id}`,
+                {},
+                {authentication: `bearer:${token}`},
+                false
+            )
+                .then(logMessage)
+                .catch(logError)
         }
     }
     return <div className={styles.main}>
@@ -109,10 +157,10 @@ export default function ProductPage ({product, token}) {
         setIsLike(!isLike)
     }
     function cartHolder() {
-        if (totalItem === 0) {
+        if (totalItem === 0 || totalItem == 0) {
             return <div
                 className={styles.cartHolder}
-                onClick={()=>{incrementCartItem()}}
+                onClick={()=>{incrementCartItem(true)}}
             >
                 ADD TO CART
             </div>
@@ -125,7 +173,7 @@ export default function ProductPage ({product, token}) {
                 <div className={styles.quantity}>
                     {totalItem}
                 </div>
-                <div onClick={()=>{incrementCartItem()}} className={`${styles.cartButton} ${styles.green_background}`}>
+                <div onClick={()=>{incrementCartItem(false)}} className={`${styles.cartButton} ${styles.green_background}`}>
                     +
                 </div>
             </div>
