@@ -1,7 +1,7 @@
 import {deleteRequest, getRequest, postRequest, putRequest} from "@/service/network/network";
 import styles from "@/styles/Product.module.css";
 import Image from "next/image";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {AiFillHeart} from "react-icons/ai";
 import { toast } from "react-toastify";
 import {logError, logMessage} from "@/service/logging/logging";
@@ -10,6 +10,7 @@ export default function ProductPage ({product, token}) {
     const [imageIndex, setImageIndex] = useState(0);
     const [totalItem, setTotalItem] = useState(0);
     const [isLike, setIsLike] = useState(false);
+    useEffect(loadQuantity, [token, product.id])
 
     function incrementCartItem(isNew) {
         updateProductQuantity(totalItem+1, isNew)
@@ -20,6 +21,11 @@ export default function ProductPage ({product, token}) {
             updateProductQuantity(totalItem-1, false)
             setTotalItem(totalItem-1);
         }
+    }
+    function loadQuantity() {
+        getRequest(`/api/cart/${product.id}`, token, false)
+            .then((data)=>{setTotalItem(data.data)})
+            .catch((error)=>{logError(error); setTotalItem(0)})
     }
     function updateProductQuantity(updatedQuantity, isNew) {
         if (isNew) {
@@ -132,7 +138,7 @@ export default function ProductPage ({product, token}) {
         setIsLike(!isLike)
     }
     function cartHolder() {
-        if (totalItem === 0) {
+        if (totalItem === 0 || totalItem == 0) {
             return <div
                 className={styles.cartHolder}
                 onClick={()=>{incrementCartItem(true)}}
