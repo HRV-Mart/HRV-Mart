@@ -1,15 +1,18 @@
-import {getRequest} from "@/service/network/network";
+import { logError, logMessage } from "@/service/logging/logging";
+import {deleteRequest, getRequest, postRequest, putRequest} from "@/service/network/network";
 import styles from "@/styles/Product.module.css";
 import Image from "next/image";
 import {useState} from "react";
 import {AiFillHeart} from "react-icons/ai";
 import { toast } from "react-toastify";
 
-export default function ProductPage ({product}) {
+export default function ProductPage ({product, token}) {
     const [imageIndex, setImageIndex] = useState(0);
     const [totalItem, setTotalItem] = useState(0);
     const [isLike, setIsLike] = useState(false);
-
+    useState(()=>{
+        isProductLiked();
+    }, [0])
     function incrementCartItem() {
         if (totalItem < 10) {
             setTotalItem(totalItem+1);
@@ -85,10 +88,23 @@ export default function ProductPage ({product}) {
     </div>
     function changeLike() {
         if (! isLike) {
-            toast('Product added to Like', { hideProgressBar: false, autoClose: 2000, type: 'success', theme: "light"});
+            postRequest(`/api/like`, {
+                productId: product.id
+            }, {authentication: `bearer:${token}`, "Content-Type": "application/json"}, false).then(()=>{
+                toast('Product added to Like', { hideProgressBar: false, autoClose: 2000, type: 'success', theme: "light"});
+            }).catch((error)=>{
+                toast('Error while processing your request', { hideProgressBar: false, autoClose: 2000, type: 'error', theme: "light"});
+            });
         }
         else {
-            toast('Product remove from Like', { hideProgressBar: false, autoClose: 2000, type: 'error', theme: "light"});
+            deleteRequest(`/api/like/${product.id}`, {
+                productId: product.id
+            }, {authentication: `bearer:${token}`}, false).then(()=>{
+                toast('Product remove from Like', { hideProgressBar: false, autoClose: 2000, type: 'info', theme: "light"});
+            }).catch((error)=>{
+                toast('Error while processing your request', { hideProgressBar: false, autoClose: 2000, type: 'error', theme: "light"});
+            });
+            
         }
         setIsLike(!isLike)
     }
@@ -133,6 +149,23 @@ export default function ProductPage ({product}) {
         else {
             setImageIndex(imageIndex-1)
         }
+    }
+    function isProductLiked() {
+        getRequest(`/api/like/${product.id}`, token, false)
+        .then((data) => {
+            logMessage(data.data);
+            if (data.status === 200) {
+                if (data.data === "true" || data.data === true) {
+                    setIsLike(true)
+                }
+                else {
+                    setIsLike(false)
+                }
+            }
+        })
+        .catch((error)=>{
+            logError(error);
+        })
     }
 }
 export async function getServerSideProps(content) {
