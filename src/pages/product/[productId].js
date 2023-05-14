@@ -15,6 +15,13 @@ export default function ProductPage ({product, token}) {
     function incrementCartItem(isNew) {
         updateProductQuantity(totalItem+1, isNew)
         setTotalItem(totalItem+1);
+    useState(()=>{
+        isProductLiked();
+    }, [0])
+    function incrementCartItem() {
+        if (totalItem < 10) {
+            setTotalItem(totalItem+1);
+        }
     }
     function decreaseCartItem() {
         if (totalItem >= 1) {
@@ -130,10 +137,23 @@ export default function ProductPage ({product, token}) {
     </div>
     function changeLike() {
         if (! isLike) {
-            toast('Product added to Like', { hideProgressBar: false, autoClose: 2000, type: 'success', theme: "light"});
+            postRequest(`/api/like`, {
+                productId: product.id
+            }, {authentication: `bearer:${token}`, "Content-Type": "application/json"}, false).then(()=>{
+                toast('Product added to Like', { hideProgressBar: false, autoClose: 2000, type: 'success', theme: "light"});
+            }).catch((error)=>{
+                toast('Error while processing your request', { hideProgressBar: false, autoClose: 2000, type: 'error', theme: "light"});
+            });
         }
         else {
-            toast('Product remove from Like', { hideProgressBar: false, autoClose: 2000, type: 'error', theme: "light"});
+            deleteRequest(`/api/like/${product.id}`, {
+                productId: product.id
+            }, {authentication: `bearer:${token}`}, false).then(()=>{
+                toast('Product remove from Like', { hideProgressBar: false, autoClose: 2000, type: 'info', theme: "light"});
+            }).catch((error)=>{
+                toast('Error while processing your request', { hideProgressBar: false, autoClose: 2000, type: 'error', theme: "light"});
+            });
+
         }
         setIsLike(!isLike)
     }
@@ -178,6 +198,23 @@ export default function ProductPage ({product, token}) {
         else {
             setImageIndex(imageIndex-1)
         }
+    }
+    function isProductLiked() {
+        getRequest(`/api/like/${product.id}`, token, false)
+        .then((data) => {
+            logMessage(data.data);
+            if (data.status === 200) {
+                if (data.data === "true" || data.data === true) {
+                    setIsLike(true)
+                }
+                else {
+                    setIsLike(false)
+                }
+            }
+        })
+        .catch((error)=>{
+            logError(error);
+        })
     }
 }
 export async function getServerSideProps(content) {
