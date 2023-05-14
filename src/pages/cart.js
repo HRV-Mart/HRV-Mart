@@ -14,7 +14,6 @@ export default function Cart ({token, index}) {
         getData();
         setRefresh(false);
     }
-    logMessage(productIds);
     function getCost() {
         getRequest('/api/cart/computeCost', token, true)
             .then((result) => {
@@ -38,22 +37,27 @@ export default function Cart ({token, index}) {
     }
     useEffect(getData, [token]);
     return <div className={styles.main}>
-        {
-            productIds.map((raw_product, index)=>{
-                if (raw_product.quantity > 0) {
-                    return <CartProduct
-                        token={token}
-                        key={index}
-                        productId={raw_product.productId}
-                        quantity={raw_product.quantity}
-                        setRefresh={setRefresh}
-                    />
-                }
-            })
-        }
+        {price === 0 ?
+        <div>Cart is empty</div> :
         <div>
-            Total Cost: {price}
+            {
+                productIds.map((raw_product, index)=>{
+                    if (raw_product.quantity > 0) {
+                        return <CartProduct
+                            token={token}
+                            key={index}
+                            productId={raw_product.productId}
+                            quantity={raw_product.quantity}
+                            setRefresh={setRefresh}
+                        />
+                    }
+                })
+            }
+            <div>
+                Total Cost: {price}
+            </div>
         </div>
+        }
     </div>
 }
 export async function getServerSideProps(context) {

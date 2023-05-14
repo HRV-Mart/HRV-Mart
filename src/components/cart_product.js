@@ -36,7 +36,7 @@ export default function CartProduct({productId, quantity, token, setRefresh}) {
                     productId: productId,
                     quantity: updatedQuantity
                 },
-                {authentication: `bearer:${token}`},
+                {authentication: `bearer:${token}`, "Content-Type": "application/json"},
                 false
             )
                 .then(logMessage)
@@ -44,7 +44,7 @@ export default function CartProduct({productId, quantity, token, setRefresh}) {
         }
         else {
             deleteRequest(
-                `/appi/cart/${productId}`,
+                `/api/cart/${productId}`,
                 {},
                 {authentication: `bearer:${token}`},
                 false

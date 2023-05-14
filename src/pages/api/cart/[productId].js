@@ -8,7 +8,7 @@ export default async function handler (req, res) {
         case "DELETE":
             try {
                 const response = await deleteRequest(
-                    `${process.env.BACKEND_URL}/cart/computeCost`,
+                    `${process.env.BACKEND_URL}/cart/${req.query.productId}`,
                     {},
                     {authentication: `bearer:${token}`},
                     false
