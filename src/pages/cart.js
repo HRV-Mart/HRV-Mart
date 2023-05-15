@@ -1,8 +1,9 @@
 import {logError, logMessage} from "@/service/logging/logging";
 import { getRequest } from "@/service/network/network";
-import styles from "@/styles/Like.module.css"
+import styles from "@/styles/Cart.module.css"
 import { useEffect, useState } from "react";
 import CartProduct from "@/components/cart_product";
+import {toast} from "react-toastify";
 
 export default function Cart ({token}) {
 
@@ -39,23 +40,48 @@ export default function Cart ({token}) {
     return <div className={styles.main}>
         {price === 0 ?
             <div>Cart is empty</div> :
-            <div>
-                {
-                    productIds.map((raw_product, index)=>{
-                        if (raw_product.quantity > 0) {
-                            return <CartProduct
-                                token={token}
-                                key={index}
-                                productId={raw_product.productId}
-                                quantity={raw_product.quantity}
-                                setRefresh={setRefresh}
-                            />
-                        }
-                    })
-                }
+            <div className={styles.cartHolder}>
                 <div>
-                    Total Cost: {price}
+                    {
+                        productIds.map((raw_product, index)=>{
+                            if (raw_product.quantity > 0) {
+                                return <CartProduct
+                                    token={token}
+                                    key={index}
+                                    productId={raw_product.productId}
+                                    quantity={raw_product.quantity}
+                                    setRefresh={setRefresh}
+                                />
+                            }
+                        })
+                    }
+                    <div className={styles.cost}>
+                        Total Cost: {price}
+                    </div>
                 </div>
+                <button
+                    className={styles.orderButton}
+                    onClick={()=>{
+                        getRequest(`/api/cart/purchase`, token, false)
+                            .then((data) =>{
+                                    logMessage(data);
+                                    toast(
+                                        'Order placed successfully 🥳',
+                                        {
+                                            hideProgressBar: false,
+                                            autoClose: 2000,
+                                            type: 'success',
+                                            theme: 'colored'
+                                        }
+                                    );
+                                    setRefresh(true);
+                                }
+                            )
+                            .catch((error)=>{logError(error); setRefresh(true)})
+                    }}
+                >
+                    Place Order
+                </button>
             </div>
         }
     </div>
