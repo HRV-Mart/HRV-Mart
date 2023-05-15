@@ -1,0 +1,39 @@
+.main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+.divider {
+    width: 50%;
+}
+.order {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+.orderShadow {
+    box-shadow: 0 2px 4px 0 rgba(59, 58, 114, 0.2), 0 3px 10px 0 rgba(34, 190, 170, 0.19);
+    transition-duration: 500ms;
+}
+.orderShadow:hover {
+    box-shadow: 0 4px 8px 0 rgba(59, 58, 114, 0.2), 0 6px 20px 0 rgba(34, 190, 170, 0.19);
+}
+.orderNumber {
+    flex: 1;
+}
+.price {
+    flex: 1;
+}
+.date {
+    flex: 3;
+}
+.status {
+    flex: 1;
+}
