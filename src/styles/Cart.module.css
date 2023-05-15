@@ -1,0 +1,39 @@
+.main {
+    min-height: 100vh;
+    color: white;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+}
+.cartHolder {
+    display: flex;
+    flex-direction: column;
+}
+.cost {
+    font-size: x-large;
+    width: 100%;
+    text-align: end;
+    color: transparent;
+    background: var(--gradient-primary);
+    background-clip: text;
+    background-size: 300% 100%;
+    animation: animateBg 2s infinite alternate-reverse;
+}
+.orderButton {
+    background-color: var(--background-primary);
+    font-size: xx-large;
+    border-radius: 50px;
+    padding: 10px;
+    border-style: solid;
+    border-color: var(--title-color);
+    margin-top: 30px;
+    cursor: pointer ;
+}
+@keyframes animateBg {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 100% 0;
+    }
+}
