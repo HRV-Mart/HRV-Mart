@@ -2,16 +2,21 @@
 [![Build Pipeline](https://github.com/HRV-Mart/HRV-Mart/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/HRV-Mart/HRV-Mart/actions/workflows/build.yml)
 ## Features
 - Login/Signup using **Email** and **Password**
-- ~Update **user details**~
 - View Products on home screen with **load more products feature**
 - **Product specific page** with product details
+- Add or remove product from like section
+- Add product to cart
+- Change product qunatity in cart
+- Order all products available in cart
+- View previous orders
 ## API Endpoints
-- **POST**`/login` to login user
--  **POST** `/signup` to create user account
--  **GET**`/product` get all products 
-- **GET**`/product/PRODUCT_ID` get specific product
-- **GET** `/user` get user details 
-- **PUT** `/user` update user details
+- `/login` to login user
+- `/signup` to create user account
+- `/product` get all products 
+- `/product/PRODUCT_ID` get specific product
+- `/cart` get authenticated user cart
+- `/order` get authenticated user orders
+- `/like` get authenticated user like product
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
