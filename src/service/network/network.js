@@ -9,7 +9,7 @@ async function fetchData(path, body, header, method, isJson) {
             method: method,
             headers: header,
         };
-        if (method != "GET") {
+        if (method != "GET" &&  method != "DELETE") {
             configs["body"] = JSON.stringify(body);
         }
         const result = await fetch(path, configs);
