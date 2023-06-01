@@ -20,6 +20,11 @@
     flex-direction: column;
     align-items: center;
 }
+@media (width <= 1000px) {
+    .imageContainer {
+        display: none;
+    }
+}
 .title {
     font-size: xx-large;
     flex: 1;
