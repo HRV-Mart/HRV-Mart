@@ -16,15 +16,18 @@
 }
 .title{
     font-size: xx-large;
+    text-align: center;
 }
 .copyright{
     font-size: large;
+    text-align: center;
 }
 .links{
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    align-items: center;
     font-size: large;
 }
 .link{
@@ -33,3 +36,13 @@
 .link:hover {
     text-decoration: underline;
 }   
+@media (width <= 1220px) {
+    .brand {
+        flex-direction: column;
+    }
+    @media (width <= 600px) {
+        .links {
+            flex-direction: column;
+        }
+    }
+}

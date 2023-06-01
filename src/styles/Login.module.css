@@ -14,6 +14,11 @@
     background-size: contain;
     flex: 4;
 }
+@media (width <= 1000px) {
+    .imageContainer {
+        display: none;
+    }
+}
 .login {
     flex: 5;
     display: flex;
@@ -22,6 +27,7 @@
 }
 .title {
     font-size: xx-large;
+    text-align: center;
     flex: 1;
 }
 .loginForm{

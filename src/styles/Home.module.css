@@ -3,7 +3,18 @@
 }
 .products{
     display: grid;
-    align-content: center;
+    align-items: center;
+    justify-content: space-evenly;
     grid-template-columns: auto auto auto;
     padding: 10px;
+}
+@media (width <= 1200px) {
+    .products {
+        grid-template-columns: auto auto;
+    }
+    @media (width <= 600px) {
+        .products {
+            grid-template-columns: auto;
+        }
+    }
 }

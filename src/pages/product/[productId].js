@@ -1,7 +1,6 @@
 import { logError, logMessage } from "@/service/logging/logging";
 import {deleteRequest, getRequest, postRequest, putRequest} from "@/service/network/network";
 import styles from "@/styles/Product.module.css";
-import Image from "next/image";
 import {useEffect, useState} from "react";
 import {AiFillHeart} from "react-icons/ai";
 import { toast } from "react-toastify";
@@ -73,11 +72,10 @@ export default function ProductPage ({product, token}) {
     }
     return <div className={styles.main}>
         <div className={styles.imageSection}>
-            <Image
+            <img
+                className={styles.image}
                 src={product.images[imageIndex]}
                 alt={product.name}
-                width={500}
-                height={500}
             />
             <div className={styles.imageIndicatorContainer}>
                 <button
