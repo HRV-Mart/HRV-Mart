@@ -1,3 +1,4 @@
+import { logError } from "@/service/logging/logging";
 import { deleteRequest, getRequest} from "@/service/network/network";
 
 export default async function handler(req, res) {
@@ -13,14 +14,21 @@ export default async function handler(req, res) {
             res.status(get_response.status).send(get_response.data);
             break;
         case "DELETE":
-            const delete_response = await deleteRequest(
-                `${process.env.BACKEND_URL}/like/${req.query.productId}`,
-                {},
-                {Authentication: `bearer:${token}`},
-                false
-            );
-            res.status(delete_response.status).json(delete_response.data)
-            break
+            try {
+                const delete_response = await deleteRequest(
+                    `${process.env.BACKEND_URL}/like/${req.query.productId}`,
+                    {},
+                    {authentication: `bearer:${token}`},
+                    false
+                );
+                res.status(delete_response.status).json(delete_response.data)
+                break
+            }
+            catch(error) {
+                logError(error)
+                res.status(500).send(error.message);
+                    
+            }
         default:
             res.status(404).json({message: "Not found"})
     }
