@@ -15,7 +15,7 @@ export default function Product ({id, title, images}) {
             setPresentImage(images[0]);
         }}
         className={styles.main}>
-            <Link href={`/product/${id}`}>
+            <Link href={`/product/${id}`} className={styles.container}>
                 <h2 className={styles.title}>
                     {title}
                 </h2>
