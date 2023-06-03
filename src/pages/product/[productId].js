@@ -163,16 +163,6 @@ export default function ProductPage({ product, token }) {
             }).catch((error) => {
                 toast('Error while processing your request', { hideProgressBar: false, autoClose: 2000, type: 'error', theme: "light" });
             });
-
-            // deleteRequest(
-            //     `/api/like/${product.id}`,
-            //     {},
-            //     {authentication: `bearer:${token}`},
-            //     false
-            // )
-            // .then(logMessage)
-            // .catch(logMessage)
-
         }
         setIsLike(!isLike)
     }
