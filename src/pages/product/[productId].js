@@ -146,26 +146,26 @@ export default function ProductPage ({product, token}) {
             });
         }
         else {
-            // deleteRequest(
-            //     `/api/like/${product.id}`,
-            //     {},
-            //     {authentication: `bearer:${token}`},
-            //     false
-            // ).then((result)=>{
-            //     logMessage(result)
-            //     toast('Product remove from Like', { hideProgressBar: false, autoClose: 2000, type: 'info', theme: "light"});
-            // }).catch((error)=>{
-            //     toast('Error while processing your request', { hideProgressBar: false, autoClose: 2000, type: 'error', theme: "light"});
-            // });
-
             deleteRequest(
                 `/api/like/${product.id}`,
                 {},
                 {authentication: `bearer:${token}`},
                 false
-            )
-            .then(logMessage)
-            .catch(logMessage)
+            ).then((result)=>{
+                logMessage(result)
+                toast('Product remove from Like', { hideProgressBar: false, autoClose: 2000, type: 'info', theme: "light"});
+            }).catch((error)=>{
+                toast('Error while processing your request', { hideProgressBar: false, autoClose: 2000, type: 'error', theme: "light"});
+            });
+
+            // deleteRequest(
+            //     `/api/like/${product.id}`,
+            //     {},
+            //     {authentication: `bearer:${token}`},
+            //     false
+            // )
+            // .then(logMessage)
+            // .catch(logMessage)
             
         }
         setIsLike(!isLike)
