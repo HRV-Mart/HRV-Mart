@@ -116,19 +116,22 @@ export default function ProductPage ({product, token}) {
                     ₹ {product.price}
                 </div>
             </div>
-            <div className={styles.likeCartContainer}>
-                <div className={styles.likeContainer} onClick={changeLike}>
-                    {
-                        isLike ?
-                            <AiFillHeart
-                                fill={"red"}/> :
-                            <AiFillHeart  />
-                    }
-                </div>
-                <div className={styles.cartContainer}>
-                    {cartHolder()}
-                </div>
-            </div>
+            {
+                token ? <div className={styles.likeCartContainer}>
+                    <div className={styles.likeContainer} onClick={changeLike}>
+                        {
+                            isLike ?
+                                <AiFillHeart
+                                    fill={"red"}/> :
+                                <AiFillHeart  />
+                        }
+                    </div>
+                    <div className={styles.cartContainer}>
+                        {cartHolder()}
+                    </div>
+                </div> : 
+                <></>
+            }
             <hr className={styles.horizontal_divider}/>
         </div>
     </div>
