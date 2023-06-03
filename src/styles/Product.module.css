@@ -142,9 +142,18 @@
     width: 100%;
     flex: 2;
     display: flex;
+    flex-direction: column;
 }
 .upperContainer {
     width: 100%;
+    /* flex: 1; */
+}
+.lowerContainer {
+    overflow-y: scroll;
+    /* flex: 1; */
+}
+.reviews {
+
 }
 @media (width <= 1000px) {
     .main {

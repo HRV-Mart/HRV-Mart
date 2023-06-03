@@ -139,6 +139,11 @@ export default function ProductPage({ product, token }) {
                     <hr className={styles.horizontal_divider} />
                 </div>
             </div>
+            <div className={styles.lowerContainer}>
+                <div className={styles.reviews}>
+
+                </div>
+            </div>
         </div>
     </div>
     function changeLike() {
