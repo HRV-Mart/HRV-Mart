@@ -1,3 +1,4 @@
+import Review from "@/components/review";
 import { logError, logMessage } from "@/service/logging/logging";
 import { deleteRequest, getRequest, postRequest, putRequest } from "@/service/network/network";
 import styles from "@/styles/Product.module.css";
@@ -143,7 +144,11 @@ export default function ProductPage({ product, token }) {
             </div>
             <div className={styles.lowerContainer}>
                 <div className={styles.reviews}>
-
+                    {
+                        reviews.map((review, index)=>{
+                            return <Review review={review.review} user={review.user} key={index}/>
+                        })
+                    }
                 </div>
             </div>
         </div>
