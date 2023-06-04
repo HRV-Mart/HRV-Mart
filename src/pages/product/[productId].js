@@ -9,6 +9,7 @@ export default function ProductPage({ product, token }) {
     const [imageIndex, setImageIndex] = useState(0);
     const [totalItem, setTotalItem] = useState(0);
     const [isLike, setIsLike] = useState(false);
+    const [reviews, setReviews] = useState([]);
 
     useEffect(loadQuantity, [token, product.id])
 
@@ -26,6 +27,7 @@ export default function ProductPage({ product, token }) {
         }
     }
     function loadQuantity() {
+        loadReviews()
         getRequest(`/api/cart/${product.id}`, token, true)
             .then((data) => {
                 if (data.status === 200) {
@@ -146,6 +148,16 @@ export default function ProductPage({ product, token }) {
             </div>
         </div>
     </div>
+    function loadReviews() {
+        const productId = product.id;
+        getRequest(
+            `/api/review?productId=${productId}`,
+            token,
+            true
+        )
+        .then((result)=>{setReviews(result.data.data); logMessage(result.data.data)})
+        .catch(logError)
+    }
     function changeLike() {
         if (!isLike) {
             postRequest(`/api/like`, {
