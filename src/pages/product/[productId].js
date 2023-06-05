@@ -145,12 +145,17 @@ export default function ProductPage({ product, token }) {
             <div className={styles.lowerContainer}>
                 <div className={styles.reviews}>
                     {
-                        reviews.map((review, index)=>{
-                            return <Review review={review.review} user={review.user} key={index}/>
+                        reviews.map((review, index) => {
+                            return <Review review={review.review} user={review.user} key={index} />
                         })
                     }
                 </div>
             </div>
+            {
+                token ? <div className={styles.floatingButton}>
+                    Add Review
+                </div> : <></>
+            }
         </div>
     </div>
     function loadReviews() {
@@ -160,8 +165,8 @@ export default function ProductPage({ product, token }) {
             token,
             true
         )
-        .then((result)=>{setReviews(result.data.data); logMessage(result.data.data)})
-        .catch(logError)
+            .then((result) => { setReviews(result.data.data); logMessage(result.data.data) })
+            .catch(logError)
     }
     function changeLike() {
         if (!isLike) {
