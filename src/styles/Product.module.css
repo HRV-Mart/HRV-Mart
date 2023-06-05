@@ -1,19 +1,23 @@
 .main {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    /* align-items: center; */
 }
 .imageSection{
-    height: 100%;
-    width: 50%;
+    height: 100vh;
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
+.image {
+    width: 500px;
+    height: 500px;
+}
 .vertical_divider{
-    height: 100%;
+    height: 100vh;
     color: rgb(242, 242, 242);
 }
 .horizontal_divider{
@@ -21,7 +25,7 @@
     color: rgb(242, 242, 242);
 }
 .details {
-    width: 50%;
+    width: 100%;
     min-height: 100%;
     display: flex;
     flex-direction: column;
@@ -132,4 +136,62 @@
     display: flex;
     align-items: center;
     justify-items: center;
+}
+.rightContainer {
+    height: 100vh;
+    width: 100%;
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+.upperContainer {
+    width: 100%;
+    /* flex: 1; */
+}
+.lowerContainer {
+    overflow-y: scroll;
+    /* flex: 1; */
+}
+.reviews {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+@media (width <= 1000px) {
+    .main {
+        flex-direction: column;
+    }
+    .imageSection {
+        width: 100%;
+        height: 50%;
+    }
+    .details {
+        width: 50%;
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .vertical_divider{
+        display: none;
+    }
+    .horizontal_divider{
+        display: none;
+    }
+    .details {
+        width: 100%;
+    }
+    @media (width <= 500px) {
+        .image {
+            width: 400px;
+            height: 400px;
+        }
+    }
+    @media (width <=450px) {
+        .image {
+            width: 300px;
+            height: 300px;
+        }
+    }
 }
