@@ -158,6 +158,23 @@
     justify-content: center;
     align-items: center;
 }
+.floatingButton {
+    position: fixed;
+    z-index: 1;
+    bottom: 5vh;
+    right: 1vw;
+    background-color: var(--background-primary);
+    font-size: x-large;
+    padding: 10px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(59, 58, 114, 0.2), 0 6px 20px 0 rgba(34, 190, 170, 0.19);
+}
+.floatingButton:hover {
+    box-shadow: 0 8px 16px 0 rgba(59, 58, 114, 0.2), 0 12px 40px 0 rgba(34, 190, 170, 0.19);
+}
 @media (width <= 1000px) {
     .main {
         flex-direction: column;
