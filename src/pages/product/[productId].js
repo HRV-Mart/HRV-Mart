@@ -13,6 +13,9 @@ export default function ProductPage({ product, token }) {
     const [reviews, setReviews] = useState([]);
     const [isReviewDialogOpen, setIsReviewDialogOpen] = useState(false);
 
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+
     useEffect(loadQuantity, [token, product.id])
 
     useEffect(() => {
@@ -186,6 +189,8 @@ export default function ProductPage({ product, token }) {
                                 placeholder="Review Title"
                                 className={styles.input}
                                 type="text"
+                                value={title}
+                                onChange={(event) => { setTitle(event.target.value) }}
                             />
                         </div>
                         <div className={styles.middleDialogContainer}>
@@ -193,6 +198,8 @@ export default function ProductPage({ product, token }) {
                                 placeholder="Describe your review"
                                 className={styles.input}
                                 type="text"
+                                value={description}
+                                onChange={(event) => { setDescription(event.target.value) }}
                             />
                         </div>
                         <div className={styles.lowerDialogContainer}>
@@ -201,7 +208,20 @@ export default function ProductPage({ product, token }) {
                     </div>
                 </div>
                 <div className={styles.reviewSubmit}>
-                    <div className={styles.button}>
+                    <div className={styles.button} onClick={() => {
+                        postRequest(
+                            '/api/review',
+                            {
+                                productId: product.id,
+                                title: title,
+                                deccription: description
+                            },
+                            { authentication: `bearer:${token}`, "Content-Type": "application/json" },
+                            false
+                        )
+                            .then(logMessage)
+                            .catch(logError)
+                    }}>
                         Submit
                     </div>
                 </div>
