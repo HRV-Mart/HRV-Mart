@@ -220,7 +220,11 @@ export default function ProductPage({ product, token }) {
                             { authentication: `bearer:${token}`, "Content-Type": "application/json" },
                             false
                         )
-                            .then(logMessage)
+                            .then((result)=>{
+                                logMessage(result)
+                                toast('Review added', { hideProgressBar: false, autoClose: 2000, type: 'success', theme: "light" });
+                                setIsReviewDialogOpen(false)
+                            })
                             .catch(logError)
                     }}>
                         Submit
