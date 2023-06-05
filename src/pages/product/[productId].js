@@ -214,7 +214,8 @@ export default function ProductPage({ product, token }) {
                             {
                                 productId: product.id,
                                 title: title,
-                                deccription: description
+                                description: description,
+                                images: []
                             },
                             { authentication: `bearer:${token}`, "Content-Type": "application/json" },
                             false
