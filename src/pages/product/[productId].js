@@ -156,7 +156,7 @@ export default function ProductPage({ product, token, reviews, nextPage, size}) 
                 </div>
                 {nextPage && nextPage !== "null" ?
                     <Link className={styles.loadReviews} href={`/product/${product.id}?page=${nextPage}&size=${size}`}>
-                        Load More reviews
+                        Next Page
                     </Link>
                     : <></>
                 }
@@ -362,7 +362,7 @@ export async function getServerSideProps(content) {
                 product: {},
                 nextPage: "null",
                 reviews: [],
-                size: 10
+                size: 1
             }
         }
     }
