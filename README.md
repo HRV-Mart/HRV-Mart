@@ -9,6 +9,7 @@
 - Change product qunatity in cart
 - Order all products available in cart
 - View previous orders
+- Get and add reviews of product
 ## API Endpoints
 - `/login` to login user
 - `/signup` to create user account
@@ -17,7 +18,7 @@
 - `/cart` get authenticated user cart
 - `/order` get authenticated user orders
 - `/like` get authenticated user like product
-
+- `/review` get review of product
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
