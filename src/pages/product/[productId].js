@@ -156,7 +156,7 @@ export default function ProductPage({ product, token }) {
                 </div>
             </div>
             {
-                true && !isReviewDialogOpen ? <div
+                token && !isReviewDialogOpen ? <div
                     className={styles.floatingButton}
                     onClick={() => { setIsReviewDialogOpen(true) }}
                 >   Add Review
