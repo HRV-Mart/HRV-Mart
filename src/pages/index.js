@@ -1,9 +1,16 @@
 import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
-import {getRequest} from "@/service/network/network";
+import {getQueryFromURL, getRequest} from "@/service/network/network";
 import Product from "@/components/product";
+import { logError, logMessage } from '@/service/logging/logging';
+import { Router } from 'next/router';
+import { useEffect, useState } from 'react';
 
-export default function Home({products}) {
+export default function Home() {
+    const [products, setProducts] = useState([])
+    const [nextPage, setNextPage] = useState(0)
+    useEffect(loadProduct, []);
+
   return (
     <>
       <Head>
@@ -25,24 +32,37 @@ export default function Home({products}) {
                   })
               }
           </div>
+          {
+            nextPage && nextPage !== "null" ? <div onClick={loadProduct}>
+                Load More Products
+            </div> : <></>
+          }
       </main>
     </>
   )
-}
-export async function getServerSideProps({ req, res }) {
-    const response = await getRequest(`${process.env.APPLICATION_URL}/api/product?index=1`, {}, true);
+  function loadProduct () {
+    getRequest(`/api/product?page=${nextPage}`, {}, true)
+    .then((response) => {
+        var res = NaN
     if (response.status === 200) {
-        return {
-            props: {
-                products: response.data.data
-            }
+        res = {
+            products: response.data.data,
+            nextPage: response.data.nextPage
         }
     }
     else {
-        return {
-            props: {
-                products: {}
-            }
-        };
+        res = {
+            products: [],
+            nextPage: "null"
+        }
     }
+    for (let index = 0; index < res.products.length; index++) {
+        products.push(res.products[index])
+        
+    }
+    setNextPage(res.nextPage)
+    setProducts(products)
+    })
+    .catch(logError)
+  }
 }
