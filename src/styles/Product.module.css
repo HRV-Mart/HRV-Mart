@@ -158,6 +158,94 @@
     justify-content: center;
     align-items: center;
 }
+.floatingButton {
+    position: fixed;
+    z-index: 1;
+    bottom: 5vh;
+    right: 1vw;
+    background-color: var(--background-primary);
+    font-size: x-large;
+    padding: 10px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(59, 58, 114, 0.2), 0 6px 20px 0 rgba(34, 190, 170, 0.19);
+}
+.floatingButton:hover {
+    box-shadow: 0 8px 16px 0 rgba(59, 58, 114, 0.2), 0 12px 40px 0 rgba(34, 190, 170, 0.19);
+}
+.reviewDialog {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: 10%;
+    background-color: var(--background);
+}
+.closeDialog {
+    cursor: pointer;
+    font-size: xx-large;
+    font-weight: bolder;
+    color: var(--background-primary);
+    margin: 5px;
+}
+.mainReviewDialog {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--background);
+}
+.leftDialogContainer {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.rightDialogContainer {
+    flex: 4;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.lowerDialogContainer {
+    width: 100%;
+    height: 100%;
+}
+.middleDialogContainer {
+    width: 100%;
+    height: 100%;
+}
+.upperDialogContainer {
+    width: 100%;
+    height: 100%;
+}
+.input {
+    width: 100%;
+    height: 100%;
+    background-color: var(--background);
+}
+.reviewSubmit {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--background);
+}
+.button {
+    background-color: var(--background-primary);
+    font-size: xx-large;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 40px;
+    cursor: pointer;
+}
 @media (width <= 1000px) {
     .main {
         flex-direction: column;

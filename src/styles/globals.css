@@ -7,7 +7,7 @@
   --font-dm: 'DM Sans', sans-serif;
   --font-dongle: 'Dongle', sans-serif;
   --font-monts: 'Montserrat', sans-serif;
-  
+  --background: white;
   --foreground: #F5F9FC;
   --background-primary: #F4631B;
   --background-secondary: rgb(80, 80, 7);
@@ -48,6 +48,7 @@ a {
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
 
+    --background: #121212;
     --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
     --secondary-glow: linear-gradient(
             to bottom right,

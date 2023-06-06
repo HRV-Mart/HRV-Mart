@@ -3,7 +3,7 @@ import { logError, logMessage } from "@/service/logging/logging";
 import { deleteRequest, getRequest, postRequest, putRequest } from "@/service/network/network";
 import styles from "@/styles/Product.module.css";
 import { useEffect, useState } from "react";
-import { AiFillHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineClose } from "react-icons/ai";
 import { toast } from "react-toastify";
 
 export default function ProductPage({ product, token }) {
@@ -11,6 +11,10 @@ export default function ProductPage({ product, token }) {
     const [totalItem, setTotalItem] = useState(0);
     const [isLike, setIsLike] = useState(false);
     const [reviews, setReviews] = useState([]);
+    const [isReviewDialogOpen, setIsReviewDialogOpen] = useState(false);
+
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
 
     useEffect(loadQuantity, [token, product.id])
 
@@ -145,13 +149,89 @@ export default function ProductPage({ product, token }) {
             <div className={styles.lowerContainer}>
                 <div className={styles.reviews}>
                     {
-                        reviews.map((review, index)=>{
-                            return <Review review={review.review} user={review.user} key={index}/>
+                        reviews.map((review, index) => {
+                            return <Review review={review.review} user={review.user} key={index} />
                         })
                     }
                 </div>
             </div>
+            {
+                true && !isReviewDialogOpen ? <div
+                    className={styles.floatingButton}
+                    onClick={() => { setIsReviewDialogOpen(true) }}
+                >   Add Review
+                </div> : <></>
+            }
         </div>
+        {
+            isReviewDialogOpen ? <div className={styles.reviewDialog}>
+                <div
+                    onClick={() => { setIsReviewDialogOpen(false) }}
+                    className={styles.closeDialog}
+                >
+                    <AiOutlineClose />
+                </div>
+                <div className={styles.mainReviewDialog}>
+                    <div className={styles.leftDialogContainer}>
+                        <div className={styles.upperDialogContainer}>
+                            Title
+                        </div>
+                        <div className={styles.middleDialogContainer}>
+                            Description
+                        </div>
+                        <div className={styles.lowerDialogContainer}>
+                            Images
+                        </div>
+                    </div>
+                    <div className={styles.rightDialogContainer}>
+                        <div className={styles.upperDialogContainer}>
+                            <input
+                                placeholder="Review Title"
+                                className={styles.input}
+                                type="text"
+                                value={title}
+                                onChange={(event) => { setTitle(event.target.value) }}
+                            />
+                        </div>
+                        <div className={styles.middleDialogContainer}>
+                            <input
+                                placeholder="Describe your review"
+                                className={styles.input}
+                                type="text"
+                                value={description}
+                                onChange={(event) => { setDescription(event.target.value) }}
+                            />
+                        </div>
+                        <div className={styles.lowerDialogContainer}>
+                            Image uploading is not implemented yet 😔
+                        </div>
+                    </div>
+                </div>
+                <div className={styles.reviewSubmit}>
+                    <div className={styles.button} onClick={() => {
+                        postRequest(
+                            '/api/review',
+                            {
+                                productId: product.id,
+                                title: title,
+                                description: description,
+                                images: []
+                            },
+                            { authentication: `bearer:${token}`, "Content-Type": "application/json" },
+                            false
+                        )
+                            .then((result)=>{
+                                logMessage(result)
+                                toast('Review added', { hideProgressBar: false, autoClose: 2000, type: 'success', theme: "light" });
+                                setIsReviewDialogOpen(false)
+                            })
+                            .catch(logError)
+                    }}>
+                        Submit
+                    </div>
+                </div>
+            </div> : <></>
+        }
     </div>
     function loadReviews() {
         const productId = product.id;
@@ -160,8 +240,8 @@ export default function ProductPage({ product, token }) {
             token,
             true
         )
-        .then((result)=>{setReviews(result.data.data); logMessage(result.data.data)})
-        .catch(logError)
+            .then((result) => { setReviews(result.data.data); logMessage(result.data.data) })
+            .catch(logError)
     }
     function changeLike() {
         if (!isLike) {
