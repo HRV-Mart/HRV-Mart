@@ -1,15 +1,14 @@
 import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
-import {getRequest} from "@/service/network/network";
+import {getQueryFromURL, getRequest} from "@/service/network/network";
 import Product from "@/components/product";
 import { logError, logMessage } from '@/service/logging/logging';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
-export default function Home() {
-    const [products, setProducts] = useState([])
-    const [nextPage, setNextPage] = useState(0)
-    const [animation, setAnimation] = useState(false)
-    useEffect(loadProduct, []);
+export default function Home({products, nextPage, size}) {
+    // const [products, setProducts] = useState([])
+    // const [nextPage, setNextPage] = useState(0)
 
   return (
     <>
@@ -34,44 +33,36 @@ export default function Home() {
           </div>
           <div className={styles.bottom}>
           {
-            nextPage && nextPage !== "null" ? <div onClick={loadProduct} className={styles.load}>
-                Load More Products
-            </div> : <></>
-          }
-          {
-            animation ? <div>
-                Loading ...
-            </div> : <></>
+            nextPage && nextPage !== "null" ? <Link className={styles.load} href={`/?page=${nextPage}&size=${size}`}>
+                Next Page
+            </Link> : <></>
           }
           </div>
       </main>
     </>
   )
-  function loadProduct () {
-    setAnimation(true)
-    getRequest(`/api/product?page=${nextPage}`, {}, true)
-    .then((response) => {
-        var res = NaN
-    if (response.status === 200) {
-        res = {
-            products: response.data.data,
-            nextPage: response.data.nextPage
-        }
-    }
-    else {
-        res = {
-            products: [],
-            nextPage: "null"
-        }
-    }
-    for (let index = 0; index < res.products.length; index++) {
-        products.push(res.products[index])
-        
-    }
-    setNextPage(res.nextPage)
-    setProducts(products)
-    setAnimation(false)
-    })
-    .catch(logError)
+}
+export async function getServerSideProps(content) {
+  logMessage(`${content.resolvedUrl}`)
+  const query = getQueryFromURL(content.resolvedUrl, `/`);
+  const response = await getRequest(`${process.env.APPLICATION_URL}/api/product${query}`, {}, true);
+  
+  var res = NaN
+  if (response.status === 200) {
+      res = {
+          products: response.data.data,
+          nextPage: response.data.nextPage,
+          size: response.data.size
+      }
   }
+  else {
+      res = {
+          products: [],
+          nextPage: "null",
+          size: 1
+      }
+  }
+  return {
+    props: res
+  };
 }
