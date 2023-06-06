@@ -1,14 +1,14 @@
 import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
-import {getQueryFromURL, getRequest} from "@/service/network/network";
+import {getRequest} from "@/service/network/network";
 import Product from "@/components/product";
 import { logError, logMessage } from '@/service/logging/logging';
-import { Router } from 'next/router';
 import { useEffect, useState } from 'react';
 
 export default function Home() {
     const [products, setProducts] = useState([])
     const [nextPage, setNextPage] = useState(0)
+    const [animation, setAnimation] = useState(false)
     useEffect(loadProduct, []);
 
   return (
@@ -32,15 +32,23 @@ export default function Home() {
                   })
               }
           </div>
+          <div className={styles.bottom}>
           {
-            nextPage && nextPage !== "null" ? <div onClick={loadProduct}>
+            nextPage && nextPage !== "null" ? <div onClick={loadProduct} className={styles.load}>
                 Load More Products
             </div> : <></>
           }
+          {
+            animation ? <div>
+                Loading ...
+            </div> : <></>
+          }
+          </div>
       </main>
     </>
   )
   function loadProduct () {
+    setAnimation(true)
     getRequest(`/api/product?page=${nextPage}`, {}, true)
     .then((response) => {
         var res = NaN
@@ -62,6 +70,7 @@ export default function Home() {
     }
     setNextPage(res.nextPage)
     setProducts(products)
+    setAnimation(false)
     })
     .catch(logError)
   }
