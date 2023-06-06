@@ -8,6 +8,19 @@
     grid-template-columns: auto auto auto;
     padding: 10px;
 }
+.bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.load {
+    border-radius: 50px;
+    font-size: x-large;
+    padding: 20px;
+    margin: 10px;
+    cursor: pointer;
+    background-color: var(--background-primary);
+}
 @media (width <= 1200px) {
     .products {
         grid-template-columns: auto auto;

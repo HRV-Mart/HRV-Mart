@@ -1,22 +1,22 @@
 import Review from "@/components/review";
 import { logError, logMessage } from "@/service/logging/logging";
-import { deleteRequest, getRequest, postRequest, putRequest } from "@/service/network/network";
+import { deleteRequest, getQueryFromURL, getRequest, postRequest, putRequest } from "@/service/network/network";
 import styles from "@/styles/Product.module.css";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AiFillHeart, AiOutlineClose } from "react-icons/ai";
 import { toast } from "react-toastify";
 
-export default function ProductPage({ product, token }) {
+export default function ProductPage({ product, token, reviews, nextPage, size}) {
     const [imageIndex, setImageIndex] = useState(0);
     const [totalItem, setTotalItem] = useState(0);
     const [isLike, setIsLike] = useState(false);
-    const [reviews, setReviews] = useState([]);
     const [isReviewDialogOpen, setIsReviewDialogOpen] = useState(false);
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
 
-    useEffect(loadQuantity, [token, product.id])
+    useEffect(loadQuantity, [token])
 
     useEffect(() => {
         isProductLiked();
@@ -154,6 +154,12 @@ export default function ProductPage({ product, token }) {
                         })
                     }
                 </div>
+                {nextPage && nextPage !== "null" ?
+                    <Link className={styles.loadReviews} href={`/product/${product.id}?page=${nextPage}&size=${size}`}>
+                        Next Page
+                    </Link>
+                    : <></>
+                }
             </div>
             {
                 token && !isReviewDialogOpen ? <div
@@ -234,14 +240,6 @@ export default function ProductPage({ product, token }) {
         }
     </div>
     function loadReviews() {
-        const productId = product.id;
-        getRequest(
-            `/api/review?productId=${productId}`,
-            token,
-            true
-        )
-            .then((result) => { setReviews(result.data.data); logMessage(result.data.data) })
-            .catch(logError)
     }
     function changeLike() {
         if (!isLike) {
@@ -329,6 +327,20 @@ export default function ProductPage({ product, token }) {
     }
 }
 export async function getServerSideProps(content) {
+    var query = getQueryFromURL(content.resolvedUrl, `/product/${content.query.productId}`)
+    logMessage(`${process.env.APPLICATION_URL}/api/review${query}&productId=${content.query.productId}`);
+    if (query.length === 0) {
+        query="?";
+    }
+    else {
+        query = query+"&"
+    }
+    const review = await getRequest(
+        `${process.env.APPLICATION_URL}/api/review${query}productId=${content.query.productId}`,
+        "",
+        true
+    )
+    // logMessage(review)
     const product = await getRequest(
         `${process.env.APPLICATION_URL}/api/product/${content.query.productId}`,
         {},
@@ -337,14 +349,20 @@ export async function getServerSideProps(content) {
     if (product.status === 200) {
         return {
             props: {
-                product: product.data
+                product: product.data,
+                nextPage: `${review.data.nextPage}`,
+                reviews: review.data.data,
+                size: review.data.size
             }
         }
     }
     else {
         return {
             props: {
-                product: {}
+                product: {},
+                nextPage: "null",
+                reviews: [],
+                size: 1
             }
         }
     }
