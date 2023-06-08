@@ -1,17 +1,19 @@
 import styles from '@/styles/Login.module.css'
-import {postRequest} from "@/service/network/network";
-import {useState} from "react";
-import {logError} from "@/service/logging/logging";
-import Router from "next/router";
-import Link from "next/link";
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 import Typewriter from "typewriter-effect";
-export default function Login({setToken}) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [isLoading, setLoading] = useState(false);
-    const [messageCode, setMessageCode] = useState(0);
 
+export default function Login({ account, application_url, message}) {
+    if (message === "LOGIN_ERROR") {
+        toast(
+            'Unable to Login',
+            {
+                hideProgressBar: false,
+                autoClose: 2000,
+                type: "error",
+                theme: "dark"
+            }
+        );
+    }
     return <div className={styles.main}>
         <div className={styles.loginContainer}>
             <div className={styles.imageContainer}/>
@@ -23,102 +25,55 @@ export default function Login({setToken}) {
                 <div className={`${styles.space} ${styles.title}`}>
                     <Typewriter options={{
                         strings: [
-                            "Welcome back to our website",
-                            "Please login with your existing account"
+                            "Welcome back to HRV-Mart",
+                            "Please login with your account"
                         ],
                         autoStart: true,
                         loop: true
                     }}/>
                 </div>
                 <div className={styles.loginForm}>
-                    <input
-                        className={styles.inputHolder}
-                        title={"Email"}
-                        type={"email"}
-                        placeholder={"Email"}
-                        value={email}
-                        onChange={(event) => {setEmail(event.target.value)}}
-                    />
-                    <input
-                        className={styles.inputHolder}
-                        title={"Password"}
-                        type={"password"}
-                        placeholder={"Password"}
-                        value={password}
-                        onChange={(event) => {setPassword(event.target.value)}}
-                    />
-                    <button className={styles.button} onClick={()=> {login()}}>
-                        Submit
-                    </button>
-                    <div className={styles.signupMessage}>
-                        Do not have an account? {" "}
-                        <Link href={'/signup'} className={styles.signup}>
-                            Sign up
-                        </Link>
+                    <div onClick={()=>oauth_2_handler('github')} className={styles.loginButton}>
+                    <div className={styles.brand_icon_container}>
+                            <img src={'/github_icon.svg'} className={styles.brand_icon}/>
+                        </div>
+                        <div className={styles.loginTitle}>
+                            Login with GitHub
+                        </div>
                     </div>
-                    {generateMessage()}
+                    <div onClick={()=>oauth_2_handler('discord')} className={styles.loginButton}>
+                    <div className={styles.brand_icon_container}>
+                            <img src={'/discord_icon.svg'} className={styles.brand_icon}/>
+                        </div>
+                        <div className={styles.loginTitle}>
+                            Login with Discord
+                        </div>
+                    </div>
+                    <div onClick={()=>oauth_2_handler('google')} className={styles.loginButton}>
+                        <div className={styles.brand_icon_container}>
+                            <img src={'/google_icon.svg'} className={styles.brand_icon}/>
+                        </div>
+                        <div className={styles.loginTitle}>
+                            Login with Google
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    function generateMessage() {
-        if (isLoading === true) {
-            return <div className={styles.messageLoading}>
-                Loading ...
-            </div>
-        }
-        else if (messageCode === 0) {
-            return <div/>
-        }
-        else if (messageCode === 200) {
-            return <div className={styles.messageSuccess}>
-                Login Success fully
-            </div>
-        }
-        else if (messageCode === 404) {
-            return <div className={styles.messageError}>
-                Incorrect credentials
-            </div>
-        }
-        else {
-            return <div className={styles.messageError}>
-                Something went wrong
-            </div>
-        }
-    }
-    function login() {
-        setLoading(true);
-        postRequest(
-            '/api/login',
-            {
-                email: email,
-                password: password
-            },
-            {
-                "Content-Type": "application/json"
-            },
-            true
+    function oauth_2_handler(provider) {
+        account.createOAuth2Session(
+            provider,
+            application_url,
+            `${application_url}/login?message=LOGIN_ERROR`
         )
-            .then((data)=> {
-                setLoading(false);
-                setMessageCode(data.status);
-
-                if (data.status === 200) {
-                    const token = data.data.token;
-                    if (token) {
-                        setToken(token);
-                    }
-                    toast('Login Successfully', { hideProgressBar: false, autoClose: 2000, type: 'success', theme: 'colored'});
-                    Router.push('/')
-                    // Save jwt token
-
-                }
-            })
-            .catch((error) => {
-                logError(error)
-                setMessageCode(500);
-                setLoading(false);
-            })
+    }
+}
+export async function getServerSideProps(content) {
+    const message = content.query.message || null;
+    return {
+        props: {
+            message: message
+        }
     }
 }
