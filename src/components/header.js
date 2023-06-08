@@ -48,10 +48,6 @@ export default function Header({token}) {
                             <AiOutlineUser  title={"Login"}/>
                             <div className={styles.iconTitle}>Login</div>
                         </Link>
-                        <Link href={"/signup"} className={styles.icon_container}>
-                            <AiOutlineUsergroupAdd  title={"Sign Up"}/>
-                            <div className={styles.iconTitle}>Sign Up</div>
-                        </Link>
                     </>
             }
 
