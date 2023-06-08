@@ -12,18 +12,26 @@ export default function App({ Component, pageProps }) {
   const appwrite_project = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
   const application_url = process.env.NEXT_PUBLIC_APPLICATION_URL;
 
-  const client = new Client()
-  .setEndpoint(appwrite_endpoint)
-  .setProject(appwrite_project);
+  var account = null
 
-  const account = new Account(client)
-  const promise = account.createJWT();
+  if (appwrite_endpoint && appwrite_project && application_url) {
+    const client = new Client()
+    .setEndpoint(appwrite_endpoint)
+    .setProject(appwrite_project);
+  
+    account = new Account(client)
+    const promise = account.createJWT();
+  
+    promise.then(function (response) {
+      setToken(response.jwt)
+    }, function (error) {
+      setToken(null)
+    });
+  }
+  else {
+    account = null;
+  }
 
-  promise.then(function (response) {
-    setToken(response.jwt)
-  }, function (error) {
-    setToken(null)
-  });
 
   const [token, setToken] = useState(null);
   setTimeout(()=>{
