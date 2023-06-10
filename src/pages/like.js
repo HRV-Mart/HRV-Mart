@@ -8,7 +8,7 @@ export default function Like ({token, index}) {
 
     const [products, setProducts] = useState([]);
     function getData() {
-        getRequest('/api/like', token, true)
+        getRequest(`/api/like?page=${index}`, token, true)
             .then((result) => {
                 setProducts(result.data.data);
                 logMessage(products);
@@ -16,7 +16,7 @@ export default function Like ({token, index}) {
     }
 
     useEffect(()=>{getData()}, [0]);
-    return <div className={styles.main}>
+    return <div className={styles.products}>
         {
             products.map((product, index)=> {
                 return <Product

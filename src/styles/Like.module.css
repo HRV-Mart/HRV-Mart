@@ -1,4 +1,4 @@
-.main {
+.products {
     min-height: 100vh;
     color: white;
     display: grid;
@@ -9,17 +9,17 @@
     justify-content: space-evenly;
 }
 @media (width <= 1400px) {
-    .main {
+    .products {
         grid-template-columns: auto auto auto;
     }
 }
 @media (width <= 1100px) {
-    .main {
+    .products {
         grid-template-columns: auto auto;
     }
 }
 @media (width <= 700px) {
-    .main {
+    .products {
         grid-template-columns: auto;
     }
 }
