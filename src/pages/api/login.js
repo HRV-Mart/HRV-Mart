@@ -6,8 +6,7 @@ export default async function handler(req, res) {
             const response = await postRequest(
                 `${process.env.BACKEND_URL}/login`,
                 {
-                    email: req.body.email,
-                    password: req.body.password
+                    jwt: req.body.jwt
                 },
                 {
                     "Content-Type": "application/json"
