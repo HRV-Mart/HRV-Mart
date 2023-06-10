@@ -1,5 +1,5 @@
 import Product from "@/components/product";
-import { logMessage } from "@/service/logging/logging";
+import { logError, logMessage } from "@/service/logging/logging";
 import { getRequest } from "@/service/network/network";
 import styles from "@/styles/Like.module.css"
 import { useEffect, useState } from "react";
@@ -8,15 +8,16 @@ export default function Like ({token, index}) {
 
     const [products, setProducts] = useState([]);
     function getData() {
-        getRequest('/api/like', token, true)
+        getRequest(`/api/like?page=${index}`, token, true)
             .then((result) => {
                 setProducts(result.data.data);
                 logMessage(products);
             })
+            .catch(logError)
     }
 
     useEffect(()=>{getData()}, [0]);
-    return <div className={styles.main}>
+    return <div className={styles.products}>
         {
             products.map((product, index)=> {
                 return <Product

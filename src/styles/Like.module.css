@@ -1,7 +1,25 @@
-.main {
+.products {
     min-height: 100vh;
     color: white;
     display: grid;
-    align-content: center;
-    justify-content: center;
+    align-items: center;
+    justify-content: space-evenly;
+    grid-template-columns: auto auto auto auto;
+    padding: 10px;
+    justify-content: space-evenly;
+}
+@media (width <= 1400px) {
+    .products {
+        grid-template-columns: auto auto auto;
+    }
+}
+@media (width <= 1100px) {
+    .products {
+        grid-template-columns: auto auto;
+    }
+}
+@media (width <= 700px) {
+    .products {
+        grid-template-columns: auto;
+    }
 }
