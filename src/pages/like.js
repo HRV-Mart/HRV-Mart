@@ -1,5 +1,5 @@
 import Product from "@/components/product";
-import { logMessage } from "@/service/logging/logging";
+import { logError, logMessage } from "@/service/logging/logging";
 import { getRequest } from "@/service/network/network";
 import styles from "@/styles/Like.module.css"
 import { useEffect, useState } from "react";
@@ -13,6 +13,7 @@ export default function Like ({token, index}) {
                 setProducts(result.data.data);
                 logMessage(products);
             })
+            .catch(logError)
     }
 
     useEffect(()=>{getData()}, [0]);
