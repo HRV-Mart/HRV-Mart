@@ -4,6 +4,10 @@ on:
   release:
     types: [published]
 
+env:
+  APPWRITE_ENDPOINT: http://localhost/v1
+  APPWRITE_PROJECT_ID: PROJECT_ID
+
 jobs:
   push_to_registries:
     name: Push Docker image to multiple registries
