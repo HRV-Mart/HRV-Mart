@@ -7,6 +7,9 @@ on:
   push:
     branches:
       - 'master'
+env:
+  APPWRITE_ENDPOINT: http://localhost/v1
+  APPWRITE_PROJECT_ID: PROJECT_ID
 
 jobs:
   build:
