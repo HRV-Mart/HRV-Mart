@@ -31,7 +31,6 @@ export default function App({ Component, pageProps }) {
   </>
 
   async function generateToken() {
-    logMessage("TICK TOCK");
 
     const client = new Client()
     client.setEndpoint(appwrite_endpoint)
