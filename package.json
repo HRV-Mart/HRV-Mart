@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@next/font": "13.4.13",
+    "@next/font": "13.4.16",
     "appwrite": "^11.0.0",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.13",
